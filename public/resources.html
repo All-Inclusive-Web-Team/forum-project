@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Resources</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <nav>
+      <img id='logo' src="assets/dcrdlogo.png" alt="logo">
+    </nav>
+	 <table id="resources-table" border>
+	 </table>
+	 <script type="module">
+		// I considered making a script file but I don't want to mess with the file structure/modularity of the project for now
+
+		// This doesn't work without when just running the resources.html file on your computer (you need a local testing server)
+		// To set up a simple local testing server, follow these instructions: https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
+		import resourcesJson from './resources.json' assert {type:'json'};
+
+		resourcesJson.resources.forEach(resource => {
+			const row = document.createElement('tr');
+
+			const title = document.createElement('td');
+			title.innerHTML = resource.title;
+
+			const url = document.createElement('td');
+			const link = document.createElement('a');
+			link.innerHTML = resource.url;
+			link.href = resource.url;
+			url.append(link);
+
+			const description = document.createElement('td');
+			description.innerHTML = resource.description;
+
+			row.append(title,url,description);
+
+			document.getElementById('resources-table').append(row);
+		});
+	 </script>
+  </body>
+</html>
