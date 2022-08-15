@@ -19,26 +19,25 @@
 		// To set up a simple local testing server, follow these instructions: https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
 		import resourcesJson from './resources.json' assert {type:'json'};
 
-		const resources = resourcesJson.resource;
-		for (let i = 0; i < resources.length; i++) {
+		resourcesJson.resources.forEach(resource => {
 			const row = document.createElement('tr');
 
 			const title = document.createElement('td');
-			title.innerHTML = resources[i].title;
+			title.innerHTML = resource.title;
 
 			const url = document.createElement('td');
 			const link = document.createElement('a');
-			link.innerHTML = resources[i].url;
-			link.href = resources[i].url;
+			link.innerHTML = resource.url;
+			link.href = resource.url;
 			url.append(link);
 
 			const description = document.createElement('td');
-			description.innerHTML = resources[i].description;
+			description.innerHTML = resource.description;
 
 			row.append(title,url,description);
 
 			document.getElementById('resources-table').append(row);
-		}
+		});
 	 </script>
   </body>
 </html>
