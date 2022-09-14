@@ -16,4 +16,12 @@ app.get('/', (req, res) => {
 
 const port = process.env.PORT || 3000
 
-app.listen(port, console.log(`app listening on port ${port}`))
+const start = async () => {
+    try {
+        app.listen(port, console.log(`app listening on port ${port}`))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+start()

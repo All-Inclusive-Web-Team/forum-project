@@ -100,9 +100,17 @@ main {
     background-color: black;
     align-self: center;
 }
+.forum-posts-header {
+    padding: 25px;
+}
 .forum-posts-wrap {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 25px;
+    gap: 1rem;
+}
+.post {
+    border: solid black 1px;
+    border-radius: 5px;
 }
