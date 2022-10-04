@@ -23,7 +23,7 @@
                     <h2 class="forum-input-header-header">Create a post</h2>
                 </div>
                 <div class="forum-input-form-wrap">
-                    <form action="/forum" method="POST">
+                    <form action="/posts" method="POST">
                         <div class="forum-form-pair">
                             <div class="forum-form-label">
                                 <label for="posted_by">Author of Post:</label>
@@ -51,18 +51,18 @@
         <section class="forum-posts">
             <h2 class="forum-posts-header">Current posts here:</h2>
             <div class="forum-posts-wrap">
-                <% if (rows && rows.length > 1) {%>
-                    <% rows.forEach(row => { %>
+                <% if (posts && posts.length > 1) {%>
+                    <% posts.forEach(post => { %>
                         <div class="post">
-                            <h2>
-                                <%= row.posted_by %>
-                            </h2>
-                            <h2>
-                                <%= row.date_of_post %>
-                            </h2>
-                            <h2>
-                                <%= row.post %>
-                            </h2>
+                            <div class="post-author">
+                                <%= post.posted_by %>
+                            </div>
+                            <div class="post-date">
+                                <%= post.date_of_post %>
+                            </div>
+                            <div class="post-content">
+                                <%= post.post %>
+                            </div>
                         </div>
                     <% }) %> 
                 <% } else {%>

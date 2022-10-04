@@ -10,8 +10,14 @@ const pool = new Pool({
 
 
 module.exports = pool
-
-
+module.exports.getPosts = async function() {
+  let data = await pool.query('SELECT * FROM posts')
+  return data.rows.reverse()
+}
+module.exports.postPost = async function(values) {
+  const text = `INSERT INTO posts(posted_by, post, date_of_post) VALUES($1, $2, $3)`
+  await pool.query(text, values)
+}
 
 
 
