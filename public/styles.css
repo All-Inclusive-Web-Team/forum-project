@@ -100,9 +100,33 @@ main {
     background-color: black;
     align-self: center;
 }
+.forum-posts-header {
+    padding: 25px;
+}
 .forum-posts-wrap {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 25px;
+    gap: 1rem;
+}
+.post {
+    border: solid black 1px;
+    padding: 5px;
+}
+.post-author {
+    font-weight: 500;
+    font-size: 1.5rem;
+    border-bottom: solid black 1px;
+    width: fit-content;
+}
+.post-date {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    /* border-bottom: solid black 1px; */
+    width: fit-content;
+    color: #444;
+}
+.post-content {
+    font-size: 1.25rem;
 }

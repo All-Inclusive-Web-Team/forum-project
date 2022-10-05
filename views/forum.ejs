@@ -23,13 +23,13 @@
                     <h2 class="forum-input-header-header">Create a post</h2>
                 </div>
                 <div class="forum-input-form-wrap">
-                    <form onsubmit="return false" method="POST">
+                    <form action="/posts" method="POST">
                         <div class="forum-form-pair">
                             <div class="forum-form-label">
-                                <label for="post-title">Title of post:</label>
+                                <label for="posted_by">Author of Post:</label>
                             </div>
                             <div class="forum-form-input">
-                                <input type="text" name="post-title">
+                                <input type="text" name="posted_by">
                             </div>
                         </div>
                         <div class="forum-form-pair">
@@ -49,8 +49,25 @@
             </div>
         </section>
         <section class="forum-posts">
+            <h2 class="forum-posts-header">Current posts here:</h2>
             <div class="forum-posts-wrap">
-                <h2>Current posts here:</h2>
+                <% if (posts && posts.length > 1) {%>
+                    <% posts.forEach(post => { %>
+                        <div class="post">
+                            <div class="post-author">
+                                <%= post.posted_by %>
+                            </div>
+                            <div class="post-date">
+                                <%= post.date_of_post %>
+                            </div>
+                            <div class="post-content">
+                                <%= post.post %>
+                            </div>
+                        </div>
+                    <% }) %> 
+                <% } else {%>
+                    <h2>Post amount = none</h2>
+                <% } %>  
             </div>
         </section>
     </main>
