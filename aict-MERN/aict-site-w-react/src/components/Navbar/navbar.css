@@ -1,0 +1,66 @@
+:root {
+    --navbar-main-color: rgb(126, 96, 13);
+}
+* {
+    box-sizing: border-box;
+}
+header {
+    background-color: var(--navbar-main-color);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-bottom: solid 1px black;
+}
+header img {
+    height: 75px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.question-mark {
+    color: white;
+    margin: 5px;
+    border: solid transparent 1px;
+    border-radius: 10000px;
+    padding: 5px;
+    position: relative;
+    cursor: default;
+}
+.question-mark:hover {
+    border-color: white;
+}
+.no-other-pages-message {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    max-width: 250px;
+    transform: translateY(95px);
+    background-color: var(--navbar-main-color);
+    color: white;
+    text-align: center;
+    /* border-radius: 10px;
+    border-top-right-radius: 0px; */
+    border-top: solid black 1px;
+    height: fit-content;
+    opacity: 0;
+    transition: opacity 50ms ease-in-out;
+    color: black;
+    overflow: hidden;
+    padding: 3px;
+}
+.no-other-pages-message-header {
+    font-size: 1.25rem;
+    padding: 5px;
+    margin: 0px;
+    margin-bottom: 3px;
+    width: fit-content;
+    border-radius: 2px; 
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.no-other-pages-message-content {
+    margin: 0;
+    color: whitesmoke;
+}
+
