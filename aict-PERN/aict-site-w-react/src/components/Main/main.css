@@ -1,0 +1,15 @@
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.create-post-header {
+    margin-top: 1rem;
+}
+
+.make-a-post-section {
+    width: 100%;
+}
