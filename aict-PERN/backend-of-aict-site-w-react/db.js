@@ -1,4 +1,3 @@
-// require('dotenv').config()
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -14,12 +13,13 @@ const pool = new Pool({
 
 
 
-export const getPosts = async function() {
+export async function getPosts() {
   let data = await pool.query('SELECT * FROM posts')
   return data.rows.reverse()
 }
-export const postPost = async function(values) {
+export async function postPost(post) {
   const text = `INSERT INTO posts(posted_by, post, date_of_post) VALUES($1, $2, $3)`
+  const values = [post.author, post.content, post.createdAt]
   await pool.query(text, values)
 }
 export default pool

@@ -4,6 +4,7 @@ import logo from './images/dcrdlogo-1.png'
 
 const Navbar = () => {
     const [isMouseOverComponent, setIsMouseOverComponent] = useState(true)
+    const [style, setStyle] = useState('none')
     const noOtherPagesMessage = useRef();
 
     const questionMarkOnMouseEnter = () =>{
@@ -12,7 +13,7 @@ const Navbar = () => {
     const questionMarkOnMouseLeave = () =>{
         setIsMouseOverComponent(true)
     }
-
+    // hidden={isMouseOverComponent}
     return (
         <header>
             <img src={logo} alt="" />

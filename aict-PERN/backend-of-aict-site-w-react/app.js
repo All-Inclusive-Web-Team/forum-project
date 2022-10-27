@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 const app = express()
 import router from './routes/posts.js'
@@ -21,4 +23,4 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/', router)
 
 const port = process.env.PORT || 3001
-app.listen(port, console.log(`App listening on port ${port}`))
+app.listen(port,() => console.log(`Listening on port ${port}`))
