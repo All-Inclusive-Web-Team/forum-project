@@ -1,36 +1,27 @@
 import './createPostBtn.css'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCirclePlus, faPlus } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faCirclePlus, faPlus)
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 const CreatePostBtn = ({setMakeAPostVisible, makeAPostVisible}) => {
 
-    const [style, setStyle] = useState('none')
+    const [isMouseOverComponent, setIsMouseOverComponent] = useState(true)
 
     const handleOnBtnEnter = () => {
-        setStyle('block')
+        setIsMouseOverComponent(false)
     }
     const handleOnBtnLeave = () => {
-        setStyle('none')
+        setIsMouseOverComponent(true)
     }
     const handleOnBtnClick = () => {
-        if (makeAPostVisible === 'none') {
-            setMakeAPostVisible('block')
-        } else {
-            setMakeAPostVisible('none')
-        }
+        setMakeAPostVisible(false)
     }
     return (
-        <>
-            <button className="create-post-btn" onMouseEnter={handleOnBtnEnter} onMouseLeave={handleOnBtnLeave} onClick={handleOnBtnClick}>
-                <FontAwesomeIcon icon={faPlus} className="create-post-btn-icon"/>
-                <div className='create-post-btn-pop-up-memo' style={{display: style}}>Create Post</div>
-            </button>
-        </>
+        <button className="create-post-btn" onMouseEnter={handleOnBtnEnter} onMouseLeave={handleOnBtnLeave} onClick={handleOnBtnClick}>
+            <FontAwesomeIcon icon={faPlus} className="create-post-btn-icon"/>
+            <div className='create-post-btn-pop-up-memo' hidden={isMouseOverComponent}>Create Post</div>
+        </button>
     )
 }
 

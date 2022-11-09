@@ -1,6 +1,6 @@
 .make-a-post {
     width: 100%;
-    background-color: var(--navbar-main-color);
+    background-color: var(--primary-color);
     position: fixed;
     bottom: 0px;
     /* padding: 10px;  */
@@ -19,7 +19,7 @@
     top: 20px;
 }
 .make-a-post-exit-btn:hover {
-    color: red;
+    color: var(--post-red);
 }
 .make-a-post-form-label {
     color: whitesmoke;
@@ -57,5 +57,5 @@
 }
 .make-a-post-form-submit-btn:hover {
     background-color: whitesmoke;
-    color: var(--navbar-main-color);
+    color: var(--primary-color);
 }

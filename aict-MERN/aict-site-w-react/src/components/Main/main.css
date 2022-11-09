@@ -7,7 +7,9 @@ main {
     gap: 1rem;
     /* margin: auto 10%; */
 }
-
+.posts {
+    width: 80%;
+}
 .create-post-header {
     margin-top: 1rem;
 }

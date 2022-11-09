@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react"
+import Post from './components/Post/Post'
 import './posts.css'
 
 const Posts = () => {
-    const [posts, setPosts] = useState(null)
-
+    const [posts, setPosts] = useState([])
     useEffect(() => {
         fetch('http://localhost:3001/posts')
             .then(res => res.json())
             .then(data => {
-                const presentablePosts = data.posts.map((post) => {
-                    return <div key={post.id} className="post"><h2 className="post-author">{post.posted_by}</h2><p>{post.post}</p></div>
-                })
-                setPosts(presentablePosts)
+                setPosts(data.posts)
             })
             .catch((err) => {
                 console.log(err)
-                setPosts(<div className="post"><p>Please configure database on your instance to create a post</p></div>)
             })
     }, [])
     return (
-        <>
-            <div className="posts-display">
-                {posts}
-            </div>
-        </>
+        <div className="posts-display">
+            {
+            posts.length > 0
+                ? posts.map((post) => {
+                    return <Post key={post.id} postAuthor={post.posted_by} postContent={post.post}/>
+                })
+            : !posts ? 
+                <p>Please configure database on your instance to create a post</p>
+            :
+                <div className="no-posts-message">No posts currently</div>
+            }
+        </div>
     )
 }
 
