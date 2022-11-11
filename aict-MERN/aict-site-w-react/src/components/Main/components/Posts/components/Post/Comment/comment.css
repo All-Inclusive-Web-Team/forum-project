@@ -1,0 +1,23 @@
+.comment {
+    /* background-color: tan; */
+    border: solid black 1px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin: 2px;
+    border-radius: 3px;
+}
+.profile-picture-and-date-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* margin-left: 10px; */
+    padding: 10px;
+    width: 100%;
+    background-color: var(--post-red);
+    color: white;
+}
+.comment-content-wrap {
+    margin-right: 10px;
+}

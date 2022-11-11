@@ -2,6 +2,9 @@ import './post.css'
 import { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart,faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import Comment from './Comment/Comment'
+import MakeComment from './MakeComment/MakeComment'
+
 
 function Post ({postAuthor, postContent}) {
     // const [isMouseOverOptionsBtn, setIsMouseOverOptionsBtn] = useState(false)
@@ -28,6 +31,12 @@ function Post ({postAuthor, postContent}) {
                 <FontAwesomeIcon className='heart-icon' icon={faHeart} />
                 <FontAwesomeIcon className='comment-icon' icon={faComment} />
             </section>
+            <section>
+                <MakeComment/>
+            </section>
+            {/* <section>
+                <Comment/>
+            </section> */}
         </div>
     )
 }

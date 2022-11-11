@@ -1,0 +1,42 @@
+.make-comment {
+    margin: 5px;
+}
+.comment-input-wrap {
+    position: relative;
+    overflow: hidden;
+}
+.comment-input {
+    min-height: 100px;
+    width: 100%;
+    resize: none;
+    word-break: break-all;
+    font-size: 1rem;
+    border: solid var(--primary-color) 1px;
+}
+.comment-submit {
+    position: absolute;
+    bottom: 7px;
+    right: 3px;
+    font-size: 1.25rem;
+    background-color: var(--post-red);
+    color: white;
+    border: none;
+    padding: 4px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: top 100ms ease-in-out, border-top-left-radius 100ms ease-in-out, background-color 100ms ease-in-out;
+    border-right-color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    box-shadow: -1px -1px 3px 2px rgba(0, 0, 0, 0.2), 1px 1px 3px 2px rgba(0, 0, 0, 0.2);
+    top: 65px;
+    /* height: 40px; */
+}
+.comment-submit:hover {
+    /* padding: 10px; */
+    top: 3px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--primary-color);
+}
