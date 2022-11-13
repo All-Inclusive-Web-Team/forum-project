@@ -1,5 +1,5 @@
 import express from 'express'
-import {getPosts, postPost} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, getCurrentPostNumber} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
@@ -14,14 +14,39 @@ router.route('/posts').get(async (req,res)=> {
     const post = {
         author: req.user.name,
         content: req.body.post,
-        createdAt: new Date().toLocaleDateString('en-CA')
+        // createdAt: new Date().toLocaleDateString('en-CA'),
     }
     try {
+        const currentPostNumber = await getCurrentPostNumber()
+        // post.fKeyID = currentPostNumber + 1
         await postPost(post)
         res.redirect('back')
         return true
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
+        console.log(error)
+    }
+})
+
+router.route('/comments').get(async (req,res) => {
+    try {
+        const result = await getPostComments(req.query.fKeyID)
+        res.json({result})
+    } catch (error) {
+        console.log(error)
+    }
+}).post(async (req,res) => {
+    const comment  = {
+        author: req.user.name,
+        // date: new Date().toLocaleDateString('en-CA'),
+        comment: req.body.comment,
+        fKeyID: req.body.fKeyID, 
+    }
+    // console.log(comment)
+    try {
+        await postComment(comment)
+        res.status(200).json({ msg: 'Success'})
+    } catch (error) {
         console.log(error)
     }
 })

@@ -2,7 +2,7 @@ import './makeComment.css'
 import { useRef, useState } from 'react'
 import axios from 'axios'
 
-const MakeComment = () => {
+const MakeComment = ({postFKeyID}) => {
     const [comment, setComment] = useState('')
     const handleCommentOnFocus = (e) => {
         e.preventDefault()
@@ -10,7 +10,12 @@ const MakeComment = () => {
     const handleCommentFormSubmit = async (e) => {
         e.preventDefault()
         try {
-            // after commit
+            const result = await axios.post('http://localhost:3001/comments', {
+                comment: comment,
+                fKeyID: postFKeyID
+            }, {withCredentials: true})
+            console.log(result)
+            window.location.reload()
         } catch (error) {
             console.log(error)
         }

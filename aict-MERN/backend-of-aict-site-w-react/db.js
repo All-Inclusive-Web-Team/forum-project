@@ -13,12 +13,13 @@ const pool = new Pool({
 })
 
 export const getPosts = async function() {
-  let data = await pool.query('SELECT * FROM posts')
+  let data = await pool.query('SELECT * FROM post')
+  // console.log(data)
   return data.rows.reverse()
 }
 export async function postPost(post) {
-  const text = `INSERT INTO posts(posted_by, post, date_of_post) VALUES($1, $2, $3)`
-  const values = [post.author, post.content, post.createdAt]
+  const text = `INSERT INTO post(post_author, post) VALUES($1, $2)`
+  const values = [post.author, post.content]
   await pool.query(text, values)
 }
 export async function createUser(register) {
@@ -33,5 +34,18 @@ export async function getOneUserByEmail (email) {
 export async function getOneUserById (id) {
   let data = await pool.query(`SELECT * FROM users WHERE id='${id}'`)
   return data.rows  
+}
+export async function postComment (comment) {
+  const text = 'INSERT INTO comment(comment_author, comment, comment_id) VALUES ($1, $2, $3)'
+  const values = [comment.author, comment.comment, comment.fKeyID]
+  await pool.query(text, values)
+}
+export async function getPostComments (id) {
+  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment FROM comment WHERE comment_id='${id}'`)
+  return post.rows
+}
+export async function getCurrentPostNumber() {
+  const data = await pool.query('SELECT MAX(comment_id) FROM comment')
+  return data.rows[0].max
 }
 export default pool

@@ -4,17 +4,18 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const Comment  = () => {
+const Comment = ({commentContent, commentAuthor, commentDate}) => {
     return (
         <div className='comment'>
             <div className="profile-picture-and-date-container">
                 <div className="profile-picture-wrap">
-                    <FontAwesomeIcon icon={faUser} />
+                    <FontAwesomeIcon icon={faUser} className="profile-icon"/>
+                    <p className='profile-name'>{commentAuthor}</p>
                 </div>
-                <p>date</p>
+                <p className='comment-date'>{commentDate}</p>
             </div>
             <div className="comment-content-wrap">
-                <p>this is a comment</p>
+                <p>{commentContent}</p>
             </div>
         </div>
     )

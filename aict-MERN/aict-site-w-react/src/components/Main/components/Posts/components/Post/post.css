@@ -74,3 +74,17 @@
 .comment-icon:hover {
     font-size: 1.5rem;
 }
+.no-comments-msg {
+    border: solid black 1px;
+    text-align: center;
+    border-radius: 3px;
+    padding: 10px;
+    font-weight: 700;
+}
+.seperation-line {
+    width: 100%;
+    /* transform: translateX(-3%); */
+    height: 3px;
+    background-color: var(--post-red);
+    margin: 10px 0px;
+}

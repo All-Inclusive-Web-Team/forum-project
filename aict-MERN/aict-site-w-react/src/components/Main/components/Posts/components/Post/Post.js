@@ -1,23 +1,25 @@
 import './post.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart,faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import Comment from './Comment/Comment'
 import MakeComment from './MakeComment/MakeComment'
+import axios from 'axios'
 
 
-function Post ({postAuthor, postContent}) {
-    // const [isMouseOverOptionsBtn, setIsMouseOverOptionsBtn] = useState(false)
-    // const postOptionsBtnBackground = useRef()
-    // const postOptionsBtn = useRef()
-    // const onPostOptionsMouseEnter = () => {
-    //     postOptionsBtnBackground.current.style.backgroundColor = 'rgba(0,0,0,0.3)'
-    //     postOptionsBtn.current.style.color = 'rgb(142, 44, 44)'
-    // }
-    // const onPostOptionsMouseLeave = () => {
-    //     postOptionsBtnBackground.current.style.backgroundColor = ''
-    //     postOptionsBtn.current.style.color = ''
-    // }
+function Post ({postAuthor, postContent, postFKeyID}) {
+    const [comments, setComment] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:3001/comments?fKeyID=${postFKeyID}`)
+            .then(res => res.json())
+            .then(data => {
+                setComment(data.result.reverse())
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div className="post">
             <div className="post-author-wrap">
@@ -32,11 +34,19 @@ function Post ({postAuthor, postContent}) {
                 <FontAwesomeIcon className='comment-icon' icon={faComment} />
             </section>
             <section>
-                <MakeComment/>
+                <MakeComment postFKeyID={postFKeyID}/>
+                <div className="seperation-line"></div>
             </section>
-            {/* <section>
-                <Comment/>
-            </section> */}
+            <section>
+                {
+                    comments.length > 0 ? 
+                        comments.map((comment) => {
+                            return <Comment key={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
+                            commentDate={comment.to_char}/>
+                        })
+                    : <div className='no-comments-msg'>No comments yet</div>
+                }
+            </section>
         </div>
     )
 }

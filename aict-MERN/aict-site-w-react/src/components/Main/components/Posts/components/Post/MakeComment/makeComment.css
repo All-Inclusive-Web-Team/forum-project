@@ -12,6 +12,14 @@
     word-break: break-all;
     font-size: 1rem;
     border: solid var(--primary-color) 1px;
+    border-radius: 2px;
+    transition: border-width 100ms ease-in-out;
+}
+.comment-input:focus {
+    outline: none;
+    border: 1px solid var(--post-red);
+    border-width: 2px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .comment-submit {
     position: absolute;
