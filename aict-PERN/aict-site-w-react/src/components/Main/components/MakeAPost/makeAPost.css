@@ -1,0 +1,62 @@
+.make-a-post {
+    width: 100%;
+    background-color: var(--navbar-main-color);
+    position: fixed;
+    bottom: 0px;
+    /* display: none; */
+    /* padding: 10px;  */
+}
+.make-a-post-wrap {
+    margin: auto 10%;
+    padding: 40px;
+    padding-bottom: 80px;
+}
+.make-a-post-exit-btn {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    font-size: 2rem;
+    right: 20px;
+    top: 20px;
+}
+.make-a-post-exit-btn:hover {
+    color: red;
+}
+.make-a-post-form-label {
+    color: whitesmoke;
+}
+.make-a-post-form-input{
+    margin-top: 5px;
+}
+.input-options {
+    border: solid black 1px;
+    border-bottom: none;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: whitesmoke;
+}
+.make-a-post-form-textarea {
+    width: 100%;
+    resize: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.make-a-post-form-submit-btn {
+    background-color: transparent;
+    border: solid black 0.5px;
+    border-radius: 3px;
+    font-size: 1.25rem;
+    float: right;
+    padding: 9px;
+    border-radius: 100px;
+    background-color: transparent;
+    color: whitesmoke;
+    border-color: whitesmoke;
+    transition: 200ms;
+    margin-top: 10px;
+}
+.make-a-post-form-submit-btn:hover {
+    background-color: whitesmoke;
+    color: var(--navbar-main-color);
+}
