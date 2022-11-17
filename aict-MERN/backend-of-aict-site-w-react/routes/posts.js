@@ -1,5 +1,5 @@
 import express from 'express'
-import {getPosts, postPost, getPostComments, postComment, getCurrentPostNumber} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
@@ -17,7 +17,6 @@ router.route('/posts').get(async (req,res)=> {
         // createdAt: new Date().toLocaleDateString('en-CA'),
     }
     try {
-        const currentPostNumber = await getCurrentPostNumber()
         // post.fKeyID = currentPostNumber + 1
         await postPost(post)
         res.redirect('back')
@@ -46,6 +45,24 @@ router.route('/comments').get(async (req,res) => {
     try {
         await postComment(comment)
         res.status(200).json({ msg: 'Success'})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.route('/delete-comment').post(async (req,res) => {
+    try {
+        await deleteComment(req.body.id)
+        res.json({msg: 'Comment Deleted'})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.route('/delete-post').post(async (req,res) => {
+    try {
+        await deletePost(req.body.id)
+        res.json({msg: 'Post Deleted'})
     } catch (error) {
         console.log(error)
     }

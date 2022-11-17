@@ -1,4 +1,3 @@
-// require('dotenv').config()
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -14,7 +13,6 @@ const pool = new Pool({
 
 export const getPosts = async function() {
   let data = await pool.query('SELECT * FROM post')
-  // console.log(data)
   return data.rows.reverse()
 }
 export async function postPost(post) {
@@ -47,5 +45,11 @@ export async function getPostComments (id) {
 export async function getCurrentPostNumber() {
   const data = await pool.query('SELECT MAX(comment_id) FROM comment')
   return data.rows[0].max
+}
+export async function deleteComment(id) {
+  await pool.query(`DELETE FROM comment WHERE id=${id}`)
+}
+export async function deletePost(id) {
+  await pool.query(`DELETE FROM post WHERE id=${id}`)
 }
 export default pool

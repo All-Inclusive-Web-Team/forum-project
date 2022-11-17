@@ -63,17 +63,20 @@ router.route('/register').post(async (req,res) => {
 })
 
 router.route('/user').get((req,res) => {
-    // console.log(req.user)
     if (req.user) {
-        res.send(req.user)
+        res.send({
+            id: req.user.id,
+            email: req.user.email,
+            name: req.user.name
+        })
     } else {
         res.send(false)
     }
 })
 
-router.route('/random').get((req,res) => {
-    res.redirect('http://localhost:3000')
-})
+// router.route('/random').get((req,res) => {
+//     res.redirect('http://localhost:3000')
+// })
 
 // router.route('/log-out').delete((req,res,next) => {
 //     console.log(req.user)
