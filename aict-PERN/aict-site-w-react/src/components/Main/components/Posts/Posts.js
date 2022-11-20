@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Post from './components/Post/Post'
 import './posts.css'
 
+
 const Posts = () => {
     const [posts, setPosts] = useState([])
     useEffect(() => {

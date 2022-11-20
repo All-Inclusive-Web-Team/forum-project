@@ -13,10 +13,3 @@ CREATE TABLE comment (
     comment TEXT NOT NULL,
     comment_id INTEGER REFERENCES post ON DELETE CASCADE NOT NULL
 );
-CREATE TABLE nested_comment (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    nested_comment_author VARCHAR(50) NOT NULL,
-    nested_comment_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    comment TEXT NOT NULL,
-    comment_id INTEGER REFERENCES comment ON DELETE CASCADE NOT NULL
-)

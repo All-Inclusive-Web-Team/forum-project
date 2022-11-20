@@ -3,6 +3,7 @@
     background-color: var(--primary-color);
     position: fixed;
     bottom: 0px;
+    /* display: none; */
     /* padding: 10px;  */
 }
 .make-a-post-wrap {

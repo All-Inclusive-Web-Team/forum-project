@@ -12,6 +12,9 @@ const Main = ({
     setUserData
     }) => {
     const [makeAPostVisible, setMakeAPostVisible] = useState(true)
+
+
+
     return(
         <main>
             {/* <section className="forum-heading">
