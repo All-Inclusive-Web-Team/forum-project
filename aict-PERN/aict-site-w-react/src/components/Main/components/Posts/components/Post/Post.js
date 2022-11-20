@@ -1,13 +1,15 @@
 import './post.css'
 import { useState, useRef, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment, faHeart,faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faHeart, faEllipsisVertical, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import Comment from './Comment/Comment'
 import MakeComment from './MakeComment/MakeComment'
 import axios from 'axios'
+import { useUserData } from '../../../../../../UserData'
 
 
-function Post ({postAuthor, postContent, postFKeyID}) {
+function Post ({postID, postAuthor, postContent, postFKeyID}) {
+    const user = useUserData()
     const [comments, setComment] = useState([])
     useEffect(() => {
         fetch(`http://localhost:3001/comments?fKeyID=${postFKeyID}`)
@@ -20,13 +22,24 @@ function Post ({postAuthor, postContent, postFKeyID}) {
             })
     }, [])
 
+    const deletePost = async () => {
+        try {
+            const result = await axios.post('http://localhost:3001/delete-post', {
+                id: postID
+            })
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="post">
             <div className="post-author-wrap">
                 <h2 className="post-author">
                     {postAuthor}
                 </h2>
-                <FontAwesomeIcon className='post-options-icon' icon={faEllipsisVertical}/>
+                <FontAwesomeIcon className='post-options-icon' icon={faTrashCan} onClick={deletePost}/>
             </div>
             <p>{postContent}</p>
             <section className='comment-like-section'>
@@ -34,14 +47,19 @@ function Post ({postAuthor, postContent, postFKeyID}) {
                 <FontAwesomeIcon className='comment-icon' icon={faComment} />
             </section>
             <section>
-                <MakeComment postFKeyID={postFKeyID}/>
+                {
+                    user ?
+                        <MakeComment postFKeyID={postFKeyID}/>
+                    : 
+                    <div className='log-in-msg'>Please log in to make a post or comment on posts</div>
+                }
                 <div className="seperation-line"></div>
             </section>
-            <section>
+            <section className='comments'>
                 {
                     comments.length > 0 ? 
                         comments.map((comment) => {
-                            return <Comment key={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
+                            return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
                             commentDate={comment.to_char}/>
                         })
                     : <div className='no-comments-msg'>No comments yet</div>

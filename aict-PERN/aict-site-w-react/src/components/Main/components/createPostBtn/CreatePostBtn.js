@@ -1,7 +1,7 @@
 import './createPostBtn.css'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 const CreatePostBtn = ({setMakeAPostVisible, makeAPostVisible}) => {

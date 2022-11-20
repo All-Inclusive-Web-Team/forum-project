@@ -3,10 +3,17 @@ import './main.css'
 import MakeAPost from './components/MakeAPost/MakeAPost'
 import Posts from './components/Posts/Posts'
 import CreatePostBtn from './components/createPostBtn/CreatePostBtn'
+import LogInRegister from './components/LogInRegister/LogInRegister'
 
 
-const Main = () => {
+const Main = ({
+    setLogInRegisterPopUp,
+    logInRegisterPopUp,
+    setUserData
+    }) => {
     const [makeAPostVisible, setMakeAPostVisible] = useState(true)
+
+
 
     return(
         <main>
@@ -21,9 +28,12 @@ const Main = () => {
             <section className="posts">
                 <Posts/>
             </section>  
-            <section className="make-a-post-section">
+            <section className="make-a-post">
                 <CreatePostBtn setMakeAPostVisible={setMakeAPostVisible} makeAPostVisible={makeAPostVisible}/>
                 <MakeAPost setMakeAPostVisible={setMakeAPostVisible} makeAPostVisible={makeAPostVisible}/>
+            </section>
+            <section className='login-register'>
+                <LogInRegister setLogInRegisterPopUp={setLogInRegisterPopUp} logInRegisterPopUp={logInRegisterPopUp} setUserData={setUserData}/>
             </section>
         </main>
     )
