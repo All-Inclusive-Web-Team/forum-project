@@ -1,11 +1,11 @@
 :root {
-    --navbar-main-color: rgb(126, 96, 13);
+    --primary-color: rgb(126, 96, 13);
 }
 * {
     box-sizing: border-box;
 }
 header {
-    background-color: var(--navbar-main-color);
+    background-color: var(--primary-color);
     margin: 0;
     display: flex;
     justify-content: space-between;
@@ -18,48 +18,30 @@ header img {
     border-radius: 10px;
     margin: 10px;
 }
-.question-mark {
-    color: white;
-    margin: 5px;
-    border: solid transparent 1px;
-    border-radius: 10000px;
-    padding: 5px;
-    position: relative;
-    cursor: default;
-}
-.question-mark:hover {
-    border-color: white;
-}
-.no-other-pages-message {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    max-width: 250px;
-    transform: translateY(95px);
-    background-color: var(--navbar-main-color);
-    color: white;
-    text-align: center;
-    /* border-radius: 10px;
-    border-top-right-radius: 0px; */
-    border-top: solid black 1px;
-    height: fit-content;
-    transition: opacity 50ms ease-in-out;
-    color: black;
-    overflow: hidden;
-    padding: 3px;
-}
-.no-other-pages-message-header {
+.user-welcome-message {
     font-size: 1.25rem;
-    padding: 5px;
-    margin: 0px;
-    margin-bottom: 3px;
-    width: fit-content;
-    border-radius: 2px; 
-    background-color: whitesmoke;
-    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+    color: white;
 }
-.no-other-pages-message-content {
-    margin: 0;
-    color: whitesmoke;
+.navbar-selection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
-
+.navbar-selection button {
+    height: fit-content;
+    background-color: transparent;
+    border: solid white 1px;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: border-radius 50ms ease-in-out;
+}
+.navbar-selection button:hover {
+    background-color: var(--post-red);
+    border-radius: 20px;
+    /* border-color: var(--post-red);
+    color: var(--post-red); */
+}

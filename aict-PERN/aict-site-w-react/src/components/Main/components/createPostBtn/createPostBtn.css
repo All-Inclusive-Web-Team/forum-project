@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
-    background-color: var(--navbar-main-color);
+    background-color: var(--post-red);
     color: white;
     padding: 20px;
     border: none;
@@ -11,6 +11,7 @@
     border-top-right-radius: 100px;
     font-size: 2rem;
     transition: 200ms;
+    cursor: pointer;
 }
 /* .create-post-btn:hover {
     color: rgb(162, 162, 162);

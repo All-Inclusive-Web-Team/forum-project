@@ -5,7 +5,9 @@ main {
     align-items: center;
     gap: 1rem;
 }
-
+.posts {
+    width: 80%;
+}
 .create-post-header {
     margin-top: 1rem;
 }

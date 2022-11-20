@@ -1,0 +1,40 @@
+.comment {
+    /* background-color: tan; */
+    border: solid black 1px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin: 2px;
+    border-radius: 3px;
+}
+.profile-picture-and-date-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* margin-left: 10px; */
+    /* padding: 10px; */
+    width: 100%;
+    background-color: var(--post-red);
+    color: white;
+}
+.comment-content-wrap {
+    margin-right: 10px;
+}
+.profile-picture-wrap {
+    background-color: brown;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    justify-content: space-between;
+    border-right: solid white 3px;
+}
+.profile-icon {
+    margin-left: 10px;
+}
+.profile-name {
+    margin-right: 10px;
+}
+.comment-date {
+    margin-right: 10px;
+}

@@ -1,6 +1,6 @@
 .make-a-post {
     width: 100%;
-    background-color: var(--navbar-main-color);
+    background-color: var(--primary-color);
     position: fixed;
     bottom: 0px;
     /* display: none; */
@@ -20,7 +20,7 @@
     top: 20px;
 }
 .make-a-post-exit-btn:hover {
-    color: red;
+    color: var(--post-red);
 }
 .make-a-post-form-label {
     color: whitesmoke;
@@ -58,5 +58,13 @@
 }
 .make-a-post-form-submit-btn:hover {
     background-color: whitesmoke;
-    color: var(--navbar-main-color);
+    color: var(--primary-color);
+}
+.log-in-msg {
+    /* border: solid white 1px; */
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+    text-align: center;
+    font-size: 1.25rem;
+    background-color: white;
+    padding: 5px;
 }
