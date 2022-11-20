@@ -3,34 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useUserData } from '../../../../UserData'
 
 const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
-    const [user, setUser] = useState(null)
+    const user = useUserData()
 
     const handleXBtnClick = () => {
         setMakeAPostVisible(true)
     }
-    const getUser = async () => {
-        try {
-            const result = await axios.get('http://localhost:3001/user', {withCredentials: true})
-            return result.data
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        getUser().then(res => {
-            if (res === false) {
-                setUser(null)
-            } else {
-                setUser(res)
-            }
-        }).catch(err =>{
-            console.log(err)
-        })
-
-    }, [])
 
     return (
         <div className="make-a-post" hidden={makeAPostVisible}>

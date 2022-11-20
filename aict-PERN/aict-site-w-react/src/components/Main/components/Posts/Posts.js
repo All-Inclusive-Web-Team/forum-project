@@ -19,7 +19,7 @@ const Posts = () => {
             {
             posts.length > 0
                 ? posts.map((post) => {
-                    return <Post key={post.id} postAuthor={post.post_author} postContent={post.post} postFKeyID={post.comment_id}/>
+                    return <Post key={post.id} postID={post.id} postAuthor={post.post_author} postContent={post.post} postFKeyID={post.comment_id}/>
                 })
             : !posts ? 
                 <p>Please configure database on your instance to create a post</p>
