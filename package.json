@@ -4,7 +4,7 @@
   "description": "The landing page of AIWT.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/app.ts",
+    "start": "nodemon aict-MERN/aict-site-w-react/src/components/Main/Main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
