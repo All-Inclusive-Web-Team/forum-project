@@ -107,6 +107,7 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
                 email: formData.logInForm.userEmail,
                 password: formData.logInForm.userPassword,
             }, {withCredentials: true})
+            console.log(result)
             dispatch({type: ACTIONS.CLEAR})
             setLoading(null)
             return result 
@@ -114,18 +115,9 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
             console.log(error)
         }
     }
-    const getUser = async () => {
-        try {
-            const result = await axios.get('http://localhost:3001/user', {withCredentials: true})
-            return result
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const [loading, setLoading] = useState(null)
     const [formResponse, setFormResponse] = useState(null)
-    const [user, setUser] = useState(null)
 
     return (
         <div className="log-in-register" ref={logInRegisterDiv}>
@@ -138,8 +130,6 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
                     e.preventDefault()
                     const results = await logIn()
                     if (results.data.success === true) {
-                        const userObj = await getUser()
-                        // sessionStorage.setItem('user', JSON.stringify(userObj.data))
                         window.location.reload()
                     } else {
                         setFormResponse(results.data.msg)
