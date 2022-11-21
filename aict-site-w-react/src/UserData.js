@@ -19,7 +19,7 @@ export const UserData = ({children}) => {
     const [data, setData] = useState(null)
     const getUserData = async () => {
         try {
-            const result = await axios.get('http://localhost:3001/user', {withCredentials: true})
+            const result = await axios.get('http://backend:3001/user', {withCredentials: true})
             setData(result.data)
         } catch (error) {
             console.log(error)

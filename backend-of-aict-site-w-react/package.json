@@ -25,6 +25,7 @@
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-http": "^0.3.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pg": "^8.8.0"
   }
 }

@@ -103,7 +103,7 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
     const logIn = async () => {
         setLoading('Loading...')
         try {
-            const result = await axios.post('http://localhost:3001/log-in', {
+            const result = await axios.post('http://backend:3001/log-in', {
                 email: formData.logInForm.userEmail,
                 password: formData.logInForm.userPassword,
             }, {withCredentials: true})
@@ -116,7 +116,7 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
     }
     const getUser = async () => {
         try {
-            const result = await axios.get('http://localhost:3001/user', {withCredentials: true})
+            const result = await axios.get('http://backend:3001/user', {withCredentials: true})
             return result
         } catch (error) {
             console.log(error)

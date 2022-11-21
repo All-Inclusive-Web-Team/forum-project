@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: website
+    build:
+      context: aict-site-w-react/.
+    ports:
+      - "3000:3000"
+    networks:
+      - db
+      - default
+
+  backend:
+    container_name: backend
+    build:
+      context: backend-of-aict-site-w-react/.
+    ports:
+      - "3001:3001"
+
+  db:
+    container_name: postgres
+    image: postgres:15.1-bullseye
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+networks:
+  db:
+
+volumes:
+  db:
