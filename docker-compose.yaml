@@ -4,13 +4,25 @@ services:
   web:
     container_name: website
     build:
-      context: .
+      context: aict-site-w-react/.
     ports:
       - "3000:3000"
     networks:
-      - db
       - default
+      - ftb
+    restart: on-failure
 
+  backend:
+    container_name: backend
+    build:
+      context: backend-of-aict-site-w-react/.
+    ports:
+      - "3001:3001"
+    networks:
+      - db
+      - ftb
+      - default
+    restart: on-failure
   db:
     container_name: postgres
     image: postgres:15.1-bullseye
@@ -20,9 +32,15 @@ services:
       - db
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=uabgfouabefoibafeobajefvoaubevfoagfoa8eyufc3
+      - POSTGRES_USER=Dayvo
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+      - ./src/migration/dbinit.sql:/backend-of-aict-w-react/schema/postScheme.sql
 
 networks:
   db:
+  ftb:
 
 volumes:
   db:
