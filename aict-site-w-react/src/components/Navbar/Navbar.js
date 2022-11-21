@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect } from 'react'
 import './navbar.css' 
 import logo from './images/dcrdlogo-1.png'
 import axios from 'axios'
@@ -30,29 +30,6 @@ const Navbar = ({setLogInRegisterPopUp, logInRegisterPopUp}) => {
         }
     }, [logInRegisterPopUp])
 
-
-    
-    // const getUser = async () => {
-    //     try {
-    //         const result = await axios.get('http://localhost:3001/user', {withCredentials: true})
-    //         return result.data
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     getUser().then(res => {
-    //         if (res === false) {
-    //             setUser(null)
-    //         } else {
-    //             setUser(res)
-    //         }
-    //     }).catch(err =>{
-    //         console.log(err)
-    //     })
-
-    // }, [])
 
     return (
 

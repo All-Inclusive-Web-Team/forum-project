@@ -74,16 +74,4 @@ router.route('/user').get((req,res) => {
     }
 })
 
-// router.route('/random').get((req,res) => {
-//     res.redirect('http://localhost:3000')
-// })
-
-// router.route('/log-out').delete((req,res,next) => {
-//     console.log(req.user)
-//     req.logout((err) => {
-//         if (err) {
-//             return next(err)
-//         }
-//     })
-// })
 export default router

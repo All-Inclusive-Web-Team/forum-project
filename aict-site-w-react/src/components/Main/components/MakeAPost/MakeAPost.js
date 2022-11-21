@@ -1,13 +1,10 @@
 import './makeAPost.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useUserData } from '../../../../UserData'
-import { faImage, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
     const user = useUserData()
-
 
     const handleXBtnClick = () => {
         setMakeAPostVisible(true)
