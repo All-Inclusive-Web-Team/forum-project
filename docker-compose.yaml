@@ -4,12 +4,19 @@ services:
   web:
     container_name: website
     build:
-      context: .
+      context: aict-site-w-react/.
     ports:
       - "3000:3000"
     networks:
       - db
       - default
+
+  backend:
+    container_name: backend
+    build:
+      context: backend-of-aict-site-w-react/.
+    ports:
+      - "3001:3001"
 
   db:
     container_name: postgres

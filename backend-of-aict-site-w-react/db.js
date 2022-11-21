@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import pkg from 'pg';
-const {Pool} = pkg;
+import postgres from 'pg';
+const {Pool} = postgres;
 const pool = new Pool({
   user: process.env.PSQLUSER,
-  host: process.env.PSQLHOST,
+  host: "db",
   database: 'aictforum',
   password: null,
   port: 5432,
@@ -42,14 +42,16 @@ export async function getPostComments (id) {
   let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment FROM comment WHERE comment_id='${id}'`)
   return post.rows
 }
+/*
 export async function getCurrentPostNumber() {
   const data = await pool.query('SELECT MAX(comment_id) FROM comment')
   return data.rows[0].max
 }
+ */
 export async function deleteComment(id) {
   await pool.query(`DELETE FROM comment WHERE id=${id}`)
 }
 export async function deletePost(id) {
   await pool.query(`DELETE FROM post WHERE id=${id}`)
 }
-export default pool
+// export default pool
