@@ -13,6 +13,7 @@ const pool = new Pool({
 
 export const getPosts = async function() {
   let data = await pool.query('SELECT * FROM post')
+  
   return data.rows.reverse()
 }
 export async function postPost(post) {
@@ -39,17 +40,25 @@ export async function postComment (comment) {
   await pool.query(text, values)
 }
 export async function getPostComments (id) {
-  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment FROM comment WHERE comment_id='${id}'`)
+  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}'`)
   return post.rows
 }
-export async function getCurrentPostNumber() {
-  const data = await pool.query('SELECT MAX(comment_id) FROM comment')
-  return data.rows[0].max
-}
+
 export async function deleteComment(id) {
   await pool.query(`DELETE FROM comment WHERE id=${id}`)
 }
 export async function deletePost(id) {
   await pool.query(`DELETE FROM post WHERE id=${id}`)
+}
+export async function postReply(reply) {
+  const text = 'INSERT INTO comment(comment_author, comment, comment_id, comment_parent_id) VALUES ($1, $2, $3, $4)'
+  const values = [reply.author, reply.comment, reply.fKeyID, reply.parentID]
+  await pool.query(text, values)
+}
+export async function getCommentReplies(id) {
+  // let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}'`)
+  let post = await pool.query(`SELECT * FROM comment WHERE comment_parent_id=${id}`)
+  // console.log(post.rows)
+  return post.rows
 }
 export default pool

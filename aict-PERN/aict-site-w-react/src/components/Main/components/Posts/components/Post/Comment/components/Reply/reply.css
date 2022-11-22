@@ -1,0 +1,7 @@
+.reply {
+    /* background-color: var(--primary-color); */
+    color: var(--post-red);
+    width: calc(100% - 4%);
+    /* float: right; */
+    border: solid var(--post-red) 1px;
+}

@@ -1,7 +1,7 @@
 import './post.css'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment, faHeart, faEllipsisVertical, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faHeart, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import Comment from './Comment/Comment'
 import MakeComment from './MakeComment/MakeComment'
 import axios from 'axios'
@@ -15,16 +15,17 @@ function Post ({postID, postAuthor, postContent, postFKeyID}) {
         fetch(`http://localhost:3001/comments?fKeyID=${postFKeyID}`)
             .then(res => res.json())
             .then(data => {
-                setComment(data.result.reverse())
+                setComment(data.result)
             })
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [postFKeyID])
+
 
     const deletePost = async () => {
         try {
-            const result = await axios.post('http://localhost:3001/delete-post', {
+            await axios.post('http://localhost:3001/delete-post', {
                 id: postID
             })
             window.location.reload()
@@ -57,10 +58,14 @@ function Post ({postID, postAuthor, postContent, postFKeyID}) {
             </section>
             <section className='comments'>
                 {
+                    
                     comments.length > 0 ? 
                         comments.map((comment) => {
-                            return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
-                            commentDate={comment.to_char}/>
+                            if (!comment.comment_parent_id) {
+                                return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
+                                commentDate={comment.to_char} postFKeyID={postFKeyID} commentParentID={comment.comment_parent_id}/>
+                            }
+
                         })
                     : <div className='no-comments-msg'>No comments yet</div>
                 }
