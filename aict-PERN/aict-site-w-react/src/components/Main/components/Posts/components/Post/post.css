@@ -90,7 +90,8 @@
     margin: 10px 0px;
 }
 .comments {
-    display: flex;
+    position: relative;
+    /* display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.5rem; */
 }

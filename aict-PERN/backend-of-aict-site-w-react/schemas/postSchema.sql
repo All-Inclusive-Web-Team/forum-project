@@ -18,3 +18,9 @@ CREATE TABLE comment (
     comment_parent_id INTEGER REFERENCES comment(id) ON DELETE CASCADE
 );
 
+CREATE TABLE users (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL
+);

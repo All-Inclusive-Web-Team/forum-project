@@ -8,7 +8,18 @@ import Reply from './components/Reply/Reply'
 
 
 
-const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, commentParentID}) => {
+const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID}) => {
+
+    // console.log(commentID)
+    // console.log(commentParentID)
+
+    let styles = {}
+
+    // if (commentParentID) {
+    //     styles = {
+    //         display: 'none'
+    //     }
+    // }
 
     const [showReplyInput, setShowReplyInput] = useState(false)
 
@@ -28,7 +39,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
         fetch(`http://localhost:3001/reply?parentID=${commentID}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data.result)
+                // console.log(data.result)
                 setReplies(data.result)
             })
             .catch((err) => {
@@ -45,7 +56,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
 
     return (
         <>
-            <div className='comment'>
+            <div className='comment' style={styles}>
                 <div className="profile-picture-and-date-container">
                     <div className="profile-picture-wrap">
                         <FontAwesomeIcon icon={faUser} className="profile-icon"/>
@@ -55,21 +66,20 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                     <FontAwesomeIcon className='comment-options-icon' icon={faTrashCan} onClick={deleteComment}/>
                 </div>
                 <div className="comment-content-wrap">
+                    <b style={{textAlign: 'center'}}>{commentID}</b>
                     <p>{commentContent}</p>
                 </div>
                 <div className="reply-btn-wrap">
-                    <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
+                    <button className='reply-btn-comment' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
             </div>
-            <div>
-                {
-                    showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} replyParentID={commentID}/>
-                }
-            </div>
+            {
+                showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} parentID={commentID}/>
+            }
             <div className="replies">
                 {
                     replies.map(reply => {
-                        return <Reply key={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID} depth={99}/>
                     })
                 }
             </div>

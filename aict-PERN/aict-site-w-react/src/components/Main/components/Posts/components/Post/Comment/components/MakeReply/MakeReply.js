@@ -6,10 +6,11 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const MakeReply = ({postFKeyID, replyParentID, setShowReplyInput, style}) => {
+const MakeReply = ({postFKeyID, parentID, setShowReplyInput, style}) => {
 
     const [comment, setComment] = useState('')
     
+    // console.log(replyParentID)
 
     const handleReplyFormSubmit = async (e) => {
         e.preventDefault()
@@ -23,7 +24,7 @@ const MakeReply = ({postFKeyID, replyParentID, setShowReplyInput, style}) => {
             const result = await axios.post('http://localhost:3001/reply', {
                 comment: comment,
                 fKeyID: postFKeyID,
-                parentID: replyParentID,
+                parentID: parentID,
             }, {withCredentials: true})
             console.log(result)
             window.location.reload()
@@ -36,15 +37,15 @@ const MakeReply = ({postFKeyID, replyParentID, setShowReplyInput, style}) => {
 
 
     return (
-        <div className="reply-form-container" style={style}>
-            <form className='reply-form' action="" onSubmit={handleReplyFormSubmit}>
-                <div className="reply">
-                    <textarea name="comment" placeholder='Reply..' className='reply-textarea' cols="30" rows="10" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-                    <div className="reply-btns-wrap">
-                        <FontAwesomeIcon icon={faX} className='reply-exit-icon' onClick={() => setShowReplyInput(false)}/>
-                        <button className='reply-submit-btn'>Submit</button>
+        <div className="make-reply-form-container" style={style}>
+            <form className='make-reply-form' action="" onSubmit={handleReplyFormSubmit}>
+                {/* <div className="make-reply"> */}
+                    <textarea name="comment" placeholder='Reply..' className='make-reply-textarea' cols="30" rows="10" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                    <div className="make-reply-btns-wrap">
+                        <FontAwesomeIcon icon={faX} className='make-reply-exit-icon' onClick={() => setShowReplyInput(false)}/>
+                        <button className='make-reply-submit-btn'>Submit</button>
                     </div>
-                </div>
+                {/* </div> */}
             </form>
         </div>
     )
