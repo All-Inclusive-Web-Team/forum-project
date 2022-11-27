@@ -64,7 +64,7 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
             <div className="replies-from-reply">
                 {
                     replies.map(reply => {
-                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={replyID} depth={depth - 2} />
+                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={replyID} depth={depth - 1} />
                     })
                 }
             </div>
