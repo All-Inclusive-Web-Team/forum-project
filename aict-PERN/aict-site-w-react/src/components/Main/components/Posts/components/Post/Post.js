@@ -8,14 +8,14 @@ import axios from 'axios'
 import { useUserData } from '../../../../../../UserData'
 
 
-function Post ({postID, postAuthor, postContent, postFKeyID}) {
+function Post ({postID, postAuthor, postContent, postDate, postFKeyID}) {
     const user = useUserData()
     const [comments, setComment] = useState([])
     useEffect(() => {
         fetch(`http://localhost:3001/comments?fKeyID=${postFKeyID}`)
             .then(res => res.json())
             .then(data => {
-                setComment(data.result)
+                setComment(data.results)
             })
             .catch((err) => {
                 console.log(err)
@@ -34,12 +34,14 @@ function Post ({postID, postAuthor, postContent, postFKeyID}) {
         }
     }
 
+
     return (
         <div className="post">
             <div className="post-author-wrap">
                 <h2 className="post-author">
                     {postAuthor}
                 </h2>
+                <div className="post-date">{postDate}</div>
                 <FontAwesomeIcon className='post-options-icon' icon={faTrashCan} onClick={deletePost}/>
             </div>
             <p>{postContent}</p>
@@ -58,14 +60,10 @@ function Post ({postID, postAuthor, postContent, postFKeyID}) {
             </section>
             <section className='comments'>
                 {
-                    
                     comments.length > 0 ? 
                         comments.map((comment) => {
-                            if (!comment.comment_parent_id) {
-                                return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
-                                commentDate={comment.to_char} postFKeyID={postFKeyID} commentParentID={comment.comment_parent_id}/>
-                            }
-
+                            return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
+                            commentDate={comment.date} postFKeyID={postFKeyID} commentParentID={comment.comment_parent_id}/>
                         })
                     : <div className='no-comments-msg'>No comments yet</div>
                 }

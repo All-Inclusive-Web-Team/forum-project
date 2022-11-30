@@ -1,26 +1,37 @@
 .reply {
     /* background-color: var(--primary-color); */
-    color: var(--post-red);
+    /* color: var(--post-red); */
     width: 100%;
     margin: 10px 0px;
-    float: right;
-    border: solid var(--post-red) 1px;
+    border: solid black 1px;
     position: relative;
     right: 0px;
-}
-.replies-from-reply {
-    /* width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; */
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 2px rgb(0 0 0 / 20%);
 }
 .reply-comment-id-info {
-    background-color: var(--primary-color);
     color: white;
+    border-bottom: solid black 1px;
+    box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 10%);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--post-red);
 }
 .reply-comment-id-info > * {
     padding: 5px;
+}
+.replies-from-reply {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    border-left: solid black 1px;
+}
+.thread-line-reply {
+    width: 2px;
+    background-color: var(--post-red);
+    float: left;
+    border-radius: 100px;
+    position: absolute;
 }

@@ -11,9 +11,9 @@ const pool = new Pool({
   port: 5432,
 })
 
+
 export const getPosts = async function() {
-  let data = await pool.query('SELECT * FROM post')
-  
+  let data = await pool.query("SELECT id, post_author, post, TO_CHAR(post_date, 'MM/DD/YYYY - HH:MIam'), comment_id  FROM post")
   return data.rows.reverse()
 }
 export async function postPost(post) {
@@ -40,10 +40,9 @@ export async function postComment (comment) {
   await pool.query(text, values)
 }
 export async function getPostComments (id) {
-  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}'`)
+  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}' AND comment_parent_id IS NULL`)
   return post.rows
 }
-
 export async function deleteComment(id) {
   await pool.query(`DELETE FROM comment WHERE id=${id}`)
 }
@@ -56,9 +55,7 @@ export async function postReply(reply) {
   await pool.query(text, values)
 }
 export async function getCommentReplies(id) {
-  // let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}'`)
-  let post = await pool.query(`SELECT * FROM comment WHERE comment_parent_id=${id}`)
-  // console.log(post.rows)
+  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_parent_id=${id}`)
   return post.rows
 }
 export default pool
