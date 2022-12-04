@@ -12,6 +12,7 @@ header {
     align-items: center;
     position: relative;
     border-bottom: solid 1px black;
+    z-index: 1;
 }
 header img {
     height: 75px;

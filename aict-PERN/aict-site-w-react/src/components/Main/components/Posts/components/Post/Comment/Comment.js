@@ -28,7 +28,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
         fetch(`http://localhost:3001/reply?parentID=${commentID}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data.result)
                 setReplies(data.result)
             })
             .catch((err) => {
@@ -69,7 +68,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
             <div className="replies">
                 {
                     replies.map(reply => {
-                        return <Reply key={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                        return <Reply key={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
                     })
                 }
             </div>

@@ -7,7 +7,7 @@ import { faUser, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { useUserData } from '../../UserData'
 import ProfileDropdown from './components/ProfileDropdown/ProfileDropdown'
 
-const Navbar = ({setLogInRegisterPopUp, logInRegisterPopUp}) => {
+const Navbar = ({setLogInRegisterPopUp, logInRegisterPopUp, openAndCloseProfilePage}) => {
     const user = useUserData()
 
     const [isProfileDropdownVisible, setIsProfileDropdownVisible] = useState(true)
@@ -16,28 +16,10 @@ const Navbar = ({setLogInRegisterPopUp, logInRegisterPopUp}) => {
         setLogInRegisterPopUp(true)
     }
 
-    const logOutBtnOnClick = async () => {
-        try {
-            const result = await axios.delete('http://localhost:3001/logout', {withCredentials: true})
-            console.log(result)
-            window.location.reload()
-        } catch (error) {
-            console.log(error)   
-        }
-    }
 
     const handleUserProfileBtnClick = () => {
         isProfileDropdownVisible ? setIsProfileDropdownVisible(false) : setIsProfileDropdownVisible(true)
     }
-
-    useEffect(() => {
-        if (logInRegisterPopUp === true) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-        }
-    }, [logInRegisterPopUp])
-
 
     return (
 
@@ -47,12 +29,12 @@ const Navbar = ({setLogInRegisterPopUp, logInRegisterPopUp}) => {
                 {
                     user 
                     ? 
-                    <div className='user-profile-btn'><FontAwesomeIcon icon={faUser} onClick={handleUserProfileBtnClick}/></div> 
+                    <div className='user-profile-btn' onClick={handleUserProfileBtnClick}><FontAwesomeIcon icon={faUser}/></div> 
                     :
                     <button className='login-btn' onClick={logInPopUpBtnOnClick}>Login</button>
                 }
             </div>
-            <ProfileDropdown isProfileDropdownVisible={isProfileDropdownVisible} setIsProfileDropdownVisible={setIsProfileDropdownVisible}/>
+            <ProfileDropdown isProfileDropdownVisible={isProfileDropdownVisible} setIsProfileDropdownVisible={setIsProfileDropdownVisible} openAndCloseProfilePage={openAndCloseProfilePage}/>
         </header>
     )
 }
