@@ -1,11 +1,15 @@
 import express from 'express'
-import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
     try {
-        let posts = await getPosts()
-        res.status(200).json({posts})
+        const results = await getPosts()
+        results.forEach(res => {
+            res.date = res.to_char
+            delete res.to_char
+        })
+        res.status(200).json({results})
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
         console.log(error)
@@ -14,10 +18,8 @@ router.route('/posts').get(async (req,res)=> {
     const post = {
         author: req.user.name,
         content: req.body.post,
-        // createdAt: new Date().toLocaleDateString('en-CA'),
     }
     try {
-        // post.fKeyID = currentPostNumber + 1
         await postPost(post)
         res.redirect('back')
         return true
@@ -29,19 +31,21 @@ router.route('/posts').get(async (req,res)=> {
 
 router.route('/comments').get(async (req,res) => {
     try {
-        const result = await getPostComments(req.query.fKeyID)
-        res.json({result})
+        const results = await getPostComments(req.query.fKeyID)
+        results.forEach(res => {
+            res.date = res.to_char
+            delete res.to_char
+        })
+        res.json({results})
     } catch (error) {
         console.log(error)
     }
 }).post(async (req,res) => {
     const comment  = {
         author: req.user.name,
-        // date: new Date().toLocaleDateString('en-CA'),
         comment: req.body.comment,
         fKeyID: req.body.fKeyID, 
     }
-    // console.log(comment)
     try {
         await postComment(comment)
         res.status(200).json({ msg: 'Success'})
@@ -67,5 +71,32 @@ router.route('/delete-post').post(async (req,res) => {
         console.log(error)
     }
 })
+
+router.route('/reply').get(async (req,res) => {
+    try {
+        const results = await getCommentReplies(req.query.parentID)
+        results.forEach(res => {
+            res.date = res.to_char
+            delete res.to_char
+        })
+        res.json({results})
+    } catch (error) {
+        console.log(error)
+    }
+}).post(async (req,res) => {
+    const reply = {
+        author: req.user.name,
+        comment: req.body.comment,
+        fKeyID: req.body.fKeyID,
+        parentID: req.body.parentID
+    }
+    try {
+        await postReply(reply)
+        res.json({msg: 'Successfully Replied'})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 export default router;
