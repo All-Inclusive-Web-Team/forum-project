@@ -8,7 +8,7 @@ import Reply from './components/Reply/Reply'
 
 
 
-const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, commentParentID}) => {
+const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, commentParentID, forProfilePage}) => {
 
     const [showReplyInput, setShowReplyInput] = useState(false)
 
@@ -60,18 +60,25 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
             </div>
-            <div>
-                {
-                    showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} replyParentID={commentID}/>
-                }
-            </div>
-            <div className="replies">
-                {
-                    replies.map(reply => {
-                        return <Reply key={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
-                    })
-                }
-            </div>
+            {   forProfilePage
+                ?
+                null
+                : 
+                <div>
+                        <div>
+                            {
+                                showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                            }
+                        </div>
+                        <div className="replies">
+                            {
+                                replies.map(reply => {
+                                    return <Reply key={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                                })
+                            }
+                        </div>
+                </div>
+            }
         </>
     )
 }

@@ -8,24 +8,14 @@ const Posts = ({forProfilePage}) => {
     const user = useUserData()
     const [posts, setPosts] = useState([])
     useEffect(() => {
-        if (forProfilePage && user) {
-            fetch(`http://localhost:3001/user-posts/${user.id}`)
-                .then(res => res.json())
-                .then(data => {
-                    setPosts(data.results)
-                })
-                .catch(err => console.log(err))
-
-        } else {
-            fetch('http://localhost:3001/posts')
-                .then(res => res.json())
-                .then(data => {
-                    setPosts(data.posts)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }
+        fetch('http://localhost:3001/posts')
+            .then(res => res.json())
+            .then(data => {
+                setPosts(data.posts)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
 
 

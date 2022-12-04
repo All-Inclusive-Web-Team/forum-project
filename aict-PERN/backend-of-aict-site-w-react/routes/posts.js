@@ -39,7 +39,7 @@ router.route('/user-posts/:usersID').get(async (req,res) => {
 router.route('/user-comments/:usersID').get(async (req,res) => {
     const usersID = req.params.usersID
     try {
-        const results = await getUserPosts(usersID)
+        const results = await getUserComments(usersID)
         res.json({results})
     } catch (error) {
         console.log(error)
