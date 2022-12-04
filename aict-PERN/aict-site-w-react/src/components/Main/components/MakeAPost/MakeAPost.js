@@ -27,6 +27,7 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                                     <div className="input-options">
                                         <FontAwesomeIcon icon={faImage} />
                                     </div>
+                                    <input type="hidden" value={user.id}/>
                                     <textarea className='make-a-post-form-textarea' name="post" cols="30" rows="10"></textarea>
                                 </div>
                             </div>

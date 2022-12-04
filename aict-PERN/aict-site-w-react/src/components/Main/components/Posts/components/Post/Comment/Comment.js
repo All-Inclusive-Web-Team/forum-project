@@ -6,7 +6,8 @@ import { useState, useEffect, useRef } from 'react'
 import MakeReply from './components/MakeReply/MakeReply'
 import Reply from './components/Reply/Reply'
 
-const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID}) => {
+
+const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, forProfilePage}) => {
     const [showReplyInput, setShowReplyInput] = useState(false)
     const [replies, setReplies] = useState([])
 
@@ -28,7 +29,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
         fetch(`http://localhost:3001/reply?parentID=${commentID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log(data.result)
                 setReplies(data.results)
             })
             .catch((err) => {
@@ -64,16 +64,25 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                 </div>
                 <div className='thread-line'></div>
             </div>
-            {
-                showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} parentID={commentID}/>
+            {   forProfilePage
+                ?
+                null
+                : 
+                <div>
+                        <div>
+                            {
+                                showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                            }
+                        </div>
+                        <div className="replies">
+                            {
+                                replies.map(reply => {
+                                    return <Reply key={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                                })
+                            }
+                        </div>
+                </div>
             }
-            <div className="replies" ref={commentRepliesWrap}>
-                {
-                    replies.map(reply => {
-                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.date} postFKeyID={postFKeyID} replyParentID={commentID} depth={98}/>
-                    })
-                }
-            </div>
         </>
     )
 }

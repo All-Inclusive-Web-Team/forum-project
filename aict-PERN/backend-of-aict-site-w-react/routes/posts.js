@@ -1,5 +1,5 @@
 import express from 'express'
-import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies, getUserPosts, getUserComments} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
@@ -18,6 +18,7 @@ router.route('/posts').get(async (req,res)=> {
     const post = {
         author: req.user.name,
         content: req.body.post,
+        userID: req.user.id
     }
     try {
         await postPost(post)
@@ -25,6 +26,26 @@ router.route('/posts').get(async (req,res)=> {
         return true
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
+        console.log(error)
+    }
+})
+
+router.route('/user-posts/:usersID').get(async (req,res) => {
+    const usersID = req.params.usersID
+    try {
+        const results = await getUserPosts(usersID)
+        res.json({results})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.route('/user-comments/:usersID').get(async (req,res) => {
+    const usersID = req.params.usersID
+    try {
+        const results = await getUserComments(usersID)
+        res.json({results})
+    } catch (error) {
         console.log(error)
     }
 })
@@ -44,7 +65,8 @@ router.route('/comments').get(async (req,res) => {
     const comment  = {
         author: req.user.name,
         comment: req.body.comment,
-        fKeyID: req.body.fKeyID, 
+        fKeyID: req.body.fKeyID,
+        userID: req.user.id
     }
     try {
         await postComment(comment)
@@ -88,7 +110,8 @@ router.route('/reply').get(async (req,res) => {
         author: req.user.name,
         comment: req.body.comment,
         fKeyID: req.body.fKeyID,
-        parentID: req.body.parentID
+        parentID: req.body.parentID,
+        userID: req.user.id
     }
     try {
         await postReply(reply)

@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useUserData } from '../../../../../../UserData'
 
 
-function Post ({postID, postAuthor, postContent, postDate, postFKeyID}) {
+function Post ({postID, postAuthor, postContent, postDate, postFKeyID, forProfilePage}) {
     const user = useUserData()
     const [comments, setComment] = useState([])
     useEffect(() => {
@@ -49,25 +49,35 @@ function Post ({postID, postAuthor, postContent, postDate, postFKeyID}) {
                 <FontAwesomeIcon className='heart-icon' icon={faHeart} />
                 <FontAwesomeIcon className='comment-icon' icon={faComment} />
             </section>
-            <section>
-                {
-                    user ?
-                        <MakeComment postFKeyID={postFKeyID}/>
-                    : 
-                    <div className='log-in-msg'>Please log in to make a post or comment on posts</div>
-                }
-                <div className="seperation-line"></div>
-            </section>
-            <section className='comments'>
-                {
-                    comments.length > 0 ? 
-                        comments.map((comment) => {
-                            return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.comment_author}
-                            commentDate={comment.date} postFKeyID={postFKeyID} commentParentID={comment.comment_parent_id}/>
-                        })
-                    : <div className='no-comments-msg'>No comments yet</div>
-                }
-            </section>
+            {
+                !forProfilePage ?
+                <section>
+                    <div>
+                        {
+                            user ?
+                                <MakeComment postFKeyID={postFKeyID}/>
+                            : 
+                            <div className='log-in-msg'>Please log in to make a post or comment on posts</div>
+                        }
+                        <div className="seperation-line"></div>
+                    </div>
+                    <div className='comments'>
+                        {
+                            
+                            comments.length > 0 ? 
+                                comments.map((comment) => {
+                                    if (!comment.comment_parent_id) {
+                                        return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.author}
+                                        commentDate={comment.date} postFKeyID={postFKeyID} commentParentID={comment.comment_parent_id}/>
+                                    }
+
+                                })
+                            : <div className='no-comments-msg'>No comments yet</div>
+                        }
+                    </div>
+                </section>
+                : null
+            }
         </div>
     )
 }

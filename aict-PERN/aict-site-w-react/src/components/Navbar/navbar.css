@@ -12,15 +12,22 @@ header {
     align-items: center;
     position: relative;
     border-bottom: solid 1px black;
+    z-index: 1;
 }
 header img {
     height: 75px;
     border-radius: 10px;
     margin: 10px;
 }
-.user-welcome-message {
+.user-profile-btn {
     font-size: 1.25rem;
     color: white;
+    padding: 10px;
+    border: solid white 1px;
+    border-radius: 100px;
+    display: flex;
+    margin-right: 10px;
+    cursor: pointer;
 }
 .navbar-selection {
     display: flex;

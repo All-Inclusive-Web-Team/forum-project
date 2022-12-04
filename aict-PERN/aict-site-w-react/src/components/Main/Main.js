@@ -4,12 +4,14 @@ import MakeAPost from './components/MakeAPost/MakeAPost'
 import Posts from './components/Posts/Posts'
 import CreatePostBtn from './components/createPostBtn/CreatePostBtn'
 import LogInRegister from './components/LogInRegister/LogInRegister'
+import ProfilePage from './components/ProfilePage/ProfilePage'
 
 
 const Main = ({
     setLogInRegisterPopUp,
     logInRegisterPopUp,
-    setUserData
+    setUserData,
+    openAndCloseProfilePage
     }) => {
     const [makeAPostVisible, setMakeAPostVisible] = useState(true)
 
@@ -34,6 +36,9 @@ const Main = ({
             </section>
             <section className='login-register'>
                 <LogInRegister setLogInRegisterPopUp={setLogInRegisterPopUp} logInRegisterPopUp={logInRegisterPopUp} setUserData={setUserData}/>
+            </section>
+            <section className='profile-page-wrap'>
+                <ProfilePage openAndCloseProfilePage={openAndCloseProfilePage}/>
             </section>
         </main>
     )
