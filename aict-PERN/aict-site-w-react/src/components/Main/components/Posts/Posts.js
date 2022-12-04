@@ -11,7 +11,7 @@ const Posts = ({forProfilePage}) => {
         fetch('http://localhost:3001/posts')
             .then(res => res.json())
             .then(data => {
-                setPosts(data.posts)
+                setPosts(data.results)
             })
             .catch((err) => {
                 console.log(err)
@@ -24,7 +24,8 @@ const Posts = ({forProfilePage}) => {
             {
             posts.length > 0
                 ? posts.map((post) => {
-                    return <Post key={post.id} postID={post.id} postAuthor={post.author} postContent={post.post} postFKeyID={post.id} forProfilePage={forProfilePage}/>
+                    return <Post key={post.id} postID={post.id} postAuthor={post.author} postContent={post.post} postFKeyID={post.id} postDate={post.date} forProfilePage={forProfilePage}/>
+
                 })
             : !posts ? 
                 <p>Please configure database on your instance to create a post</p>

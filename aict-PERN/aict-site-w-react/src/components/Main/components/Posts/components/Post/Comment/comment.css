@@ -1,12 +1,10 @@
 .comment {
     border: solid black 1px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    margin: 2px;
+    margin: 10px 0px;
     border-radius: 3px;
     box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    position: relative;
 }
 .profile-picture-and-date-container {
     display: flex;
@@ -15,17 +13,27 @@
     width: 100%;
     background-color: var(--post-red);
     color: white;
+    position: relative;
+    border-bottom: solid white 1px;
 }
 .profile-picture-wrap {
-    background-color: brown;
     display: flex;
     align-items: center;
-    width: 100px;
+    width: 90px;
     justify-content: space-between;
-    border-right: solid white 3px;
+}
+.profile-picture {
+    border: solid white 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 200px;
+    padding: 10px;
+    margin-left: 5px;
+    width: fit-content;
 }
 .profile-icon {
-    margin-left: 10px;
+    color: white;
 }
 .profile-name {
     margin-right: 10px;
@@ -40,6 +48,18 @@
 .comment-options-icon:hover {
     color: #444;
 }
+.comment-id-info {
+    color: white;
+    border-bottom: solid black 1px;
+    box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 10%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--post-red);
+}
+.comment-id-info > * {
+    padding: 5px;
+}
 .comment-content-wrap {
     margin-right: 10px;
 }
@@ -47,33 +67,39 @@
     overflow-wrap: anywhere;
     margin: 10px;
 }
+.thread-line {
+    width: 2px;
+    float: left;
+    background-color: var(--post-red);
+    border-radius: 100px;
+}
+
 /* REPLY BUTTON */
 
 .reply-btn-wrap {
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .reply-btn {
-    float: right;
+    /* float: right; */
     margin: 5px;
     background-color: transparent;
     border: none;
     color: var(--post-red);
     border-bottom: solid transparent 1px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .reply-btn:hover {
     border-bottom-color: var(--post-red);
 }
 
-/* REPLY CONTAINER */
-
 .replies {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    /* background-color: tan; */
-    align-items: end;
-    /* justify-content: right;
-    width: 100%; */
+    align-items: flex-end;
+    border-left: solid black 1px;
 }
