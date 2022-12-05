@@ -62,7 +62,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                 <div className="reply-btn-wrap">
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
-                <div className='thread-line'></div>
+                {/* <div className='thread-line'></div> */}
             </div>
             {
                 showReplyInput && <MakeReply setShowReplyInput={setShowReplyInput} postFKeyID={postFKeyID} parentID={commentID}/>
