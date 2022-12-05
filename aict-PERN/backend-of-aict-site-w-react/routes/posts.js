@@ -18,6 +18,7 @@ router.route('/posts').get(async (req,res)=> {
     const post = {
         author: req.user.name,
         content: req.body.post,
+        userID: req.user.id
     }
     try {
         await postPost(post)
@@ -44,7 +45,8 @@ router.route('/comments').get(async (req,res) => {
     const comment  = {
         author: req.user.name,
         comment: req.body.comment,
-        fKeyID: req.body.fKeyID, 
+        fKeyID: req.body.fKeyID,
+        userID: req.user.id
     }
     try {
         await postComment(comment)
@@ -88,7 +90,8 @@ router.route('/reply').get(async (req,res) => {
         author: req.user.name,
         comment: req.body.comment,
         fKeyID: req.body.fKeyID,
-        parentID: req.body.parentID
+        parentID: req.body.parentID,
+        userID: req.user.id
     }
     try {
         await postReply(reply)

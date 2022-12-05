@@ -13,12 +13,12 @@ const pool = new Pool({
 
 
 export const getPosts = async function() {
-  let data = await pool.query("SELECT id, post_author, post, TO_CHAR(post_date, 'MM/DD/YYYY - HH:MIam'), comment_id  FROM post")
+  let data = await pool.query("SELECT id, author, post, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam') FROM post")
   return data.rows.reverse()
 }
 export async function postPost(post) {
-  const text = `INSERT INTO post(post_author, post) VALUES($1, $2)`
-  const values = [post.author, post.content]
+  const text = `INSERT INTO post(users_id, author, post) VALUES($1, $2, $3)`
+  const values = [post.userID, post.author, post.content]
   await pool.query(text, values)
 }
 export async function createUser(register) {
@@ -35,12 +35,12 @@ export async function getOneUserById (id) {
   return data.rows  
 }
 export async function postComment (comment) {
-  const text = 'INSERT INTO comment(comment_author, comment, comment_id) VALUES ($1, $2, $3)'
-  const values = [comment.author, comment.comment, comment.fKeyID]
+  const text = 'INSERT INTO comment(users_id, author, comment, post_id) VALUES ($1, $2, $3, $4)'
+  const values = [comment.userID, comment.author, comment.comment, comment.fKeyID]
   await pool.query(text, values)
 }
 export async function getPostComments (id) {
-  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_id='${id}' AND comment_parent_id IS NULL`)
+  let post = await pool.query(`SELECT id, author, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE post_id='${id}' AND comment_parent_id IS NULL`)
   return post.rows
 }
 export async function deleteComment(id) {
@@ -50,12 +50,12 @@ export async function deletePost(id) {
   await pool.query(`DELETE FROM post WHERE id=${id}`)
 }
 export async function postReply(reply) {
-  const text = 'INSERT INTO comment(comment_author, comment, comment_id, comment_parent_id) VALUES ($1, $2, $3, $4)'
-  const values = [reply.author, reply.comment, reply.fKeyID, reply.parentID]
+  const text = 'INSERT INTO comment(users_id, author, comment, post_id, comment_parent_id) VALUES ($1, $2, $3, $4, $5)'
+  const values = [reply.userID, reply.author, reply.comment, reply.fKeyID, reply.parentID]
   await pool.query(text, values)
 }
 export async function getCommentReplies(id) {
-  let post = await pool.query(`SELECT id, comment_author, TO_CHAR(comment_date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_parent_id=${id}`)
+  let post = await pool.query(`SELECT id, author, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_parent_id=${id}`)
   return post.rows
 }
 export default pool
