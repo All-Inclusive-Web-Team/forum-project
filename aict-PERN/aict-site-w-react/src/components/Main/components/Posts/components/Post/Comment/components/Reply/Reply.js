@@ -56,7 +56,7 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
             { showReplyInput && <MakeReply 
                 setShowReplyInput={setShowReplyInput}
                 postFKeyID={postFKeyID}
-                parentID={replyID}
+                replyParentID={replyID}
                 style={{width: `${depth}%`}}
             />}
             <div className="replies-from-reply" style={{width: `${depth}%`}}>

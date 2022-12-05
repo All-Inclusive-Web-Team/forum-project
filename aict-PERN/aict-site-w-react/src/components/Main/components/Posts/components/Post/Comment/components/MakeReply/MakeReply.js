@@ -6,11 +6,10 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const MakeReply = ({postFKeyID, parentID, setShowReplyInput, style}) => {
+const MakeReply = ({replyParentID, postFKeyID, parentID, setShowReplyInput, style}) => {
 
     const [comment, setComment] = useState('')
     
-    // console.log(replyParentID)
 
     const handleReplyFormSubmit = async (e) => {
         e.preventDefault()
@@ -24,7 +23,7 @@ const MakeReply = ({postFKeyID, parentID, setShowReplyInput, style}) => {
             const result = await axios.post('http://localhost:3001/reply', {
                 comment: comment,
                 fKeyID: postFKeyID,
-                parentID: parentID,
+                parentID: replyParentID,
             }, {withCredentials: true})
             console.log(result)
             window.location.reload()
