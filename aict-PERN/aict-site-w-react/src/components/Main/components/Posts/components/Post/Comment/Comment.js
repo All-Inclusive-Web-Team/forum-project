@@ -62,7 +62,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                 <div className="reply-btn-wrap">
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
-                <div className='thread-line'></div>
             </div>
             {   forProfilePage
                 ?
@@ -77,7 +76,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                         <div className="replies">
                             {
                                 replies.map(reply => {
-                                    return <Reply key={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID}/>
+                                    return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID} depth={96}/>
                                 })
                             }
                         </div>

@@ -5,12 +5,11 @@ import { useState, useEffect} from 'react'
 import MakeReply from '../MakeReply/MakeReply'
 
 
-const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth, }) => {
+const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth}) => {
     // STATES
     const [replies, setReplies] = useState([])
 
     useEffect(() => {      
-        console.log('ran')
         fetch(`http://localhost:3001/reply?parentID=${replyID}`)
             .then(res => res.json())
             .then(data => {
@@ -53,7 +52,6 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth, 
                 <div className="reply-btn-wrap">
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
-                <div className='thread-line-reply'></div>
             </div>
             { showReplyInput && <MakeReply 
                 setShowReplyInput={setShowReplyInput}

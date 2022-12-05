@@ -49,7 +49,6 @@ const ProfilePage = ({openAndCloseProfilePage}) => {
             fetch(`http://localhost:3001/user-comments/${user.id}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data.results)
                     setComments(data.results)
                 })
                 .catch((err) => {
@@ -98,7 +97,6 @@ const ProfilePage = ({openAndCloseProfilePage}) => {
                         comments.length > 0
                         ?
                         comments.map((comment) => {
-                            console.log(comment)
                             return <Comment key={comment.id} commentID={comment.id} commentContent={comment.comment} commentAuthor={comment.author}
                             commentDate={comment.date} commentParentID={comment.comment_parent_id} forProfilePage={true}/>
                         })

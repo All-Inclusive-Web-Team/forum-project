@@ -67,12 +67,12 @@
     overflow-wrap: anywhere;
     margin: 10px;
 }
-.thread-line {
+/* .thread-line {
     width: 2px;
     float: left;
     background-color: var(--post-red);
     border-radius: 100px;
-}
+} */
 
 /* REPLY BUTTON */
 

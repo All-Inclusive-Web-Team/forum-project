@@ -28,10 +28,10 @@
     width: 100%;
     border-left: solid black 1px;
 }
-.thread-line-reply {
+/* .thread-line-reply {
     width: 2px;
     background-color: var(--post-red);
     float: left;
     border-radius: 100px;
     position: absolute;
-}
+} */
