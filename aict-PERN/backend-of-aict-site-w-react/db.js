@@ -13,11 +13,11 @@ const pool = new Pool({
 
 
 export const getPosts = async function() {
-  let data = await pool.query("SELECT id, author, post, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam') FROM post")
+  let data = await pool.query("SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam'), post.likes, post.dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) GROUP BY post.id")
   return data.rows.reverse()
 }
 export const getUserPosts = async function(id) {
-  let data = await pool.query(`SELECT * FROM post WHERE users_id=${id}`)
+  let data = await pool.query(`SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam'), post.likes, post.dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) WHERE post.users_id=${id} GROUP BY post.id`)
   return data.rows.reverse()
 }
 export async function postPost(post) {
