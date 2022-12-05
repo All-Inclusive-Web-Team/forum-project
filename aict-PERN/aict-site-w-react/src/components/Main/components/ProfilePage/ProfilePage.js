@@ -85,7 +85,7 @@ const ProfilePage = ({openAndCloseProfilePage}) => {
                             posts.length > 0 
                             ?
                             posts.map(post => {
-                                return <Post key={post.id} postID={post.id} postAuthor={post.author} postContent={post.post} postFKeyID={post.id}/>
+                                return <Post key={post.id} postID={post.id} postAuthor={post.author} likes={post.likes} dislikes={post.dislikes} postContent={post.post} postDate={post.date} commentAmount={post.comment_amount} postFKeyID={post.id}/>
                             })
                             :
                             <h2>You have no posts currently</h2>

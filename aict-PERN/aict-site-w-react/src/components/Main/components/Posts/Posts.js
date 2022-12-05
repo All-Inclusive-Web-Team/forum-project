@@ -24,7 +24,7 @@ const Posts = ({forProfilePage}) => {
             {
             posts.length > 0
                 ? posts.map((post) => {
-                    return <Post key={post.id} postID={post.id} postAuthor={post.author} postContent={post.post} postDate={post.date} postFKeyID={post.id} forProfilePage={forProfilePage}/>
+                    return <Post key={post.id} postID={post.id} postAuthor={post.author} likes={post.likes} dislikes={post.dislikes} postContent={post.post} postDate={post.date} commentAmount={post.comment_amount} postFKeyID={post.id} forProfilePage={forProfilePage}/>
                 })
             : !posts ? 
                 <p>Please configure database on your instance to create a post</p>
