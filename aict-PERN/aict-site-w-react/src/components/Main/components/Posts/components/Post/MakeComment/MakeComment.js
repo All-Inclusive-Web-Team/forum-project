@@ -12,7 +12,7 @@ const MakeComment = ({postFKeyID}) => {
         try {
             const result = await axios.post('http://localhost:3001/comments', {
                 comment: comment,
-                fKeyID: postFKeyID
+                fKeyID: postFKeyID,
             }, {withCredentials: true})
             console.log(result)
             window.location.reload()
