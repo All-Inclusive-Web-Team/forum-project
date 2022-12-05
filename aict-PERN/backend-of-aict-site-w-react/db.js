@@ -13,7 +13,7 @@ const pool = new Pool({
 
 
 export const getPosts = async function() {
-  let data = await pool.query('SELECT * FROM post')
+  let data = await pool.query("SELECT id, author, post, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam') FROM post")
   return data.rows.reverse()
 }
 export const getUserPosts = async function(id) {
