@@ -16,13 +16,17 @@ export const getPosts = async function() {
   let data = await pool.query("SELECT id, author, post, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam') FROM post")
   return data.rows.reverse()
 }
+export const getUserPosts = async function(id) {
+  let data = await pool.query(`SELECT * FROM post WHERE users_id=${id}`)
+  return data.rows.reverse()
+}
 export async function postPost(post) {
   const text = `INSERT INTO post(users_id, author, post) VALUES($1, $2, $3)`
   const values = [post.userID, post.author, post.content]
   await pool.query(text, values)
 }
 export async function createUser(register) {
-  const text = `INSERT INTO users(email, password, name) VALUES($1, $2, $3)`
+  const text = `INSERT INTO users (email, password, name) VALUES ($1, $2, $3)`
   const values = [register.email, register.password, register.name]
   await pool.query(text, values)
 }
@@ -57,5 +61,9 @@ export async function postReply(reply) {
 export async function getCommentReplies(id) {
   let post = await pool.query(`SELECT id, author, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam'), comment, comment_parent_id FROM comment WHERE comment_parent_id=${id}`)
   return post.rows
+}
+export async function getUserComments(id) {
+  let data = await pool.query(`SELECT * FROM comment WHERE users_id=${id}`)
+  return data.rows.reverse()
 }
 export default pool

@@ -1,5 +1,5 @@
 import express from 'express'
-import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies, getUserPosts, getUserComments} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
@@ -26,6 +26,26 @@ router.route('/posts').get(async (req,res)=> {
         return true
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
+        console.log(error)
+    }
+})
+
+router.route('/user-posts/:usersID').get(async (req,res) => {
+    const usersID = req.params.usersID
+    try {
+        const results = await getUserPosts(usersID)
+        res.json({results})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.route('/user-comments/:usersID').get(async (req,res) => {
+    const usersID = req.params.usersID
+    try {
+        const results = await getUserComments(usersID)
+        res.json({results})
+    } catch (error) {
         console.log(error)
     }
 })
