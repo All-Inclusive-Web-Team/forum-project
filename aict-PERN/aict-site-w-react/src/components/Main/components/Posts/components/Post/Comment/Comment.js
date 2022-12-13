@@ -1,18 +1,18 @@
 import './comment.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faTrashCan, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import axios from 'axios'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import MakeReply from './components/MakeReply/MakeReply'
 import Reply from './components/Reply/Reply'
 
 
-const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, forProfilePage}) => {
+const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKeyID, atRenderLikes, atRenderDislikes, forProfilePage}) => {
     const [showReplyInput, setShowReplyInput] = useState(false)
     const [replies, setReplies] = useState([])
-
-    // REFS
-    const commentRepliesWrap = useRef()
+    const [likes, setLikes] = useState(atRenderLikes)
+    const [dislikes, setDislikes] = useState(atRenderDislikes)
 
     const deleteComment = async () => {
         try {
@@ -36,9 +36,32 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
             })
     }, [commentID])
 
+    const handleLikeBtnClick = async () => {
+        try {
+            const results = await axios.get(`http://localhost:3001/like-comment/${commentID}`, {withCredentials: true})
+            setLikes(results.data.results.length)
+            const updatedDislikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${commentID}`, {withCredentials: true})
+            setDislikes(updatedDislikes.data.results.dislikes)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDislikeBtnClick = async () => {
+        try {
+            const results = await axios.get(`http://localhost:3001/dislike-comment/${commentID}`, {withCredentials: true})
+            setDislikes(results.data.results.length)
+            const updatedLikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${commentID}`, {withCredentials: true})
+            setLikes(updatedLikes.data.results.likes)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleReplyBtnClick = () => {
         setShowReplyInput(true)
     }    
+
 
     return (
         <>
@@ -53,13 +76,19 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                     <p className='comment-date'>{commentDate}</p>
                     <FontAwesomeIcon className='comment-options-icon' icon={faTrashCan} onClick={deleteComment}/>
                 </div>
-                <div className="comment-id-info">
+                {/* <div className="comment-id-info">
                     <div>Comment ID: {commentID}</div>
-                </div>
+                </div> */}
                 <div className="comment-content-wrap">
                     <p>{commentContent}</p>
                 </div>
                 <div className="reply-btn-wrap">
+                    <div className="comment-heart-container">
+                        <FontAwesomeIcon icon={faHeart} className='comment-reaction-icon comment-heart-icon' onClick={handleLikeBtnClick}/>
+                        <div className='comment-likes-number comment-number-of-reactions'>{likes}</div>
+                        <FontAwesomeIcon icon={faHeartCrack} className='comment-reaction-icon comment-heart-break-icon' onClick={handleDislikeBtnClick}/>
+                        <div className='comment-dislikes-number comment-number-of-reactions'>{dislikes}</div>
+                    </div>
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
             </div>
@@ -76,7 +105,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                         <div className="replies">
                             {
                                 replies.map(reply => {
-                                    return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID} depth={96}/>
+                                    return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} atRenderLikes={reply.likes} atRenderDislikes={reply.dislikes} postFKeyID={postFKeyID} depth={96}/>
                                 })
                             }
                         </div>
