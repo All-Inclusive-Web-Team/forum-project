@@ -67,23 +67,16 @@
     overflow-wrap: anywhere;
     margin: 10px;
 }
-/* .thread-line {
-    width: 2px;
-    float: left;
-    background-color: var(--post-red);
-    border-radius: 100px;
-} */
 
 /* REPLY BUTTON */
 
 .reply-btn-wrap {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    padding: 5px;
 }
-
 .reply-btn {
-    /* float: right; */
     margin: 5px;
     background-color: transparent;
     border: none;
@@ -92,11 +85,23 @@
     display: flex;
     justify-content: flex-end;
 }
-
 .reply-btn:hover {
     border-bottom-color: var(--post-red);
 }
-
+.comment-heart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .35rem;
+}
+.comment-reaction-icon {
+    font-size: 1rem;
+    color: var(--post-red);
+}
+.comment-number-of-reactions {
+    font-size: 1rem;
+    color: var(--post-red);
+}
 .replies {
     display: flex;
     flex-direction: column;

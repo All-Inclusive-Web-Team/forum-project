@@ -42,10 +42,10 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
                     <p className='comment-date'>{date}</p>
                     <FontAwesomeIcon className='comment-options-icon' icon={faTrashCan}/>
                 </div>
-                <div className="reply-comment-id-info">
+                {/* <div className="reply-comment-id-info">
                     <div>Comment ID: {replyID}</div>
                     {replyParentID && <div>parent id: {replyParentID}</div>}
-                </div>
+                </div> */}
                 <div className="comment-content-wrap">
                     <p>{reply}</p>
                 </div>
@@ -62,6 +62,7 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
             <div className="replies-from-reply" style={{width: `${depth}%`}}>
                 {
                     replies.map(reply => {
+                        console.log(reply)
                         return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.date} postFKeyID={postFKeyID} replyParentID={replyID} depth={depth - 2} />
                     })
                 }

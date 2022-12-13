@@ -2,7 +2,7 @@ import './makeComment.css'
 import { useRef, useState } from 'react'
 import axios from 'axios'
 
-const MakeComment = ({postFKeyID}) => {
+const MakeComment = ({postFKeyID, isMakeCommentVisible}) => {
     const [comment, setComment] = useState('')
     const handleCommentOnFocus = (e) => {
         e.preventDefault()
@@ -21,7 +21,7 @@ const MakeComment = ({postFKeyID}) => {
         }
     }
     return  (
-        <div className="make-comment">
+        <div className="make-comment" hidden={isMakeCommentVisible}>
             <form className='make-comment-form' onSubmit={handleCommentFormSubmit}>
                 <div className="comment-input-wrap">
                     <textarea value={comment} name="comment" className='comment-input' placeholder='Make a comment..' onFocus={handleCommentOnFocus}

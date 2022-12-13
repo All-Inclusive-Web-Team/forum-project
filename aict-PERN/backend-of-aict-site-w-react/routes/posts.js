@@ -1,14 +1,10 @@
 import express from 'express'
-import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies, getUserPosts, getUserComments} from '../db.js'
+import {getPosts, postPost, getPostComments, postComment, deleteComment, deletePost, postReply, getCommentReplies, getUserPosts, getUserComments, likePost, dislikePost, getPostReactionsAmount, likeComment, dislikeComment, getCommentReactionsAmount} from '../db.js'
 const router = express.Router()
 
 router.route('/posts').get(async (req,res)=> {
     try {
         const results = await getPosts()
-        results.forEach(res => {
-            res.date = res.to_char
-            delete res.to_char
-        })
         res.status(200).json({results})
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
@@ -53,10 +49,6 @@ router.route('/user-comments/:usersID').get(async (req,res) => {
 router.route('/comments').get(async (req,res) => {
     try {
         const results = await getPostComments(req.query.fKeyID)
-        results.forEach(res => {
-            res.date = res.to_char
-            delete res.to_char
-        })
         res.json({results})
     } catch (error) {
         console.log(error)
@@ -97,10 +89,6 @@ router.route('/delete-post').post(async (req,res) => {
 router.route('/reply').get(async (req,res) => {
     try {
         const results = await getCommentReplies(req.query.parentID)
-        results.forEach(res => {
-            res.date = res.to_char
-            delete res.to_char
-        })
         res.json({results})
     } catch (error) {
         console.log(error)
@@ -120,6 +108,71 @@ router.route('/reply').get(async (req,res) => {
         console.log(error)
     }
 })
-
+// for post reactions
+router.route('/like-post/:id').get(async (req,res) => {
+    const postID = req.params.id
+    const userID = req.user.id
+    try {
+        const results = await likePost(postID, userID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.route('/dislike-post/:id').get(async (req,res) => {
+    const postID = req.params.id
+    const userID = req.user.id
+    try {
+        const results = await dislikePost(postID, userID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.route('/post-reactions-amount/:id').get(async (req,res) => {
+    const postID = req.params.id
+    try {
+        const results = await getPostReactionsAmount(postID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
+// for comment reactions 
+router.route('/like-comment/:id').get(async (req,res) => {
+    const postID = req.params.id
+    const userID = req.user.id
+    try {
+        const results = await likeComment(postID, userID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.route('/dislike-comment/:id').get(async (req,res) => {
+    const postID = req.params.id
+    const userID = req.user.id
+    try {
+        const results = await dislikeComment(postID, userID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.route('/comment-reactions-amount/:id').get(async (req,res) => {
+    const postID = req.params.id
+    try {
+        const results = await getCommentReactionsAmount(postID)
+        res.status(200).json({results})
+        return true
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 export default router;
