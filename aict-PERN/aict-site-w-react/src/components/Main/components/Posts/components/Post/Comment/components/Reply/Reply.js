@@ -1,13 +1,18 @@
 import './reply.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faTrashCan, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { useState, useEffect} from 'react'
+import axios from 'axios'
 import MakeReply from '../MakeReply/MakeReply'
 
 
-const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth}) => {
+const Reply = ({reply, replyID, author, date, postFKeyID, atRenderLikes, atRenderDislikes, depth}) => {
     // STATES
     const [replies, setReplies] = useState([])
+    const [likes, setLikes] = useState(atRenderLikes)
+    const [dislikes, setDislikes] = useState(atRenderDislikes)
+    const [showReplyInput, setShowReplyInput] = useState(false)
 
     useEffect(() => {      
         fetch(`http://localhost:3001/reply?parentID=${replyID}`)
@@ -20,15 +25,31 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
             })
     }, [replyID])
 
-
-
-
-    const [showReplyInput, setShowReplyInput] = useState(false)
-
     const handleReplyBtnClick = () => {
         showReplyInput ? setShowReplyInput(false) : setShowReplyInput(true)
     }
 
+    const handleLikeBtnClick = async () => {
+        try {
+            const results = await axios.get(`http://localhost:3001/like-comment/${replyID}`, {withCredentials: true})
+            setLikes(results.data.results.length)
+            const updatedDislikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${replyID}`, {withCredentials: true})
+            setDislikes(updatedDislikes.data.results.dislikes)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDislikeBtnClick = async () => {
+        try {
+            const results = await axios.get(`http://localhost:3001/dislike-comment/${replyID}`, {withCredentials: true})
+            setDislikes(results.data.results.length)
+            const updatedLikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${replyID}`, {withCredentials: true})
+            setLikes(updatedLikes.data.results.likes)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <div className='reply' style={{width: `${depth}%`}}>
@@ -50,6 +71,12 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
                     <p>{reply}</p>
                 </div>
                 <div className="reply-btn-wrap">
+                    <div className="comment-heart-container">
+                        <FontAwesomeIcon icon={faHeart} className='comment-reaction-icon comment-heart-icon' onClick={handleLikeBtnClick}/>
+                        <div className='comment-likes-number comment-number-of-reactions'>{likes}</div>
+                        <FontAwesomeIcon icon={faHeartCrack} className='comment-reaction-icon comment-heart-break-icon' onClick={handleDislikeBtnClick}/>
+                        <div className='comment-dislikes-number comment-number-of-reactions'>{dislikes}</div>
+                    </div>
                     <button className='reply-btn' onClick={handleReplyBtnClick}>Reply</button>
                 </div>
             </div>
@@ -62,8 +89,7 @@ const Reply = ({reply, replyID, author, date, postFKeyID, replyParentID, depth})
             <div className="replies-from-reply" style={{width: `${depth}%`}}>
                 {
                     replies.map(reply => {
-                        console.log(reply)
-                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.date} postFKeyID={postFKeyID} replyParentID={replyID} depth={depth - 2} />
+                        return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.comment_author} date={reply.date} postFKeyID={postFKeyID} atRenderLikes={reply.likes} atRenderDislikes={reply.dislikes} replyParentID={replyID} depth={depth - 2} />
                     })
                 }
             </div>

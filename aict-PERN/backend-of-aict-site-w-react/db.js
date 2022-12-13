@@ -64,9 +64,12 @@ export async function deletePost(id) {
 }
 export async function postReply(reply) {
   const id = uuidv4()
-  const text = 'INSERT INTO comment(id, users_id, author, comment, post_id, comment_parent_id) VALUES ($1, $2, $3, $4, $5, $6)'
-  const values = [id, reply.userID, reply.author, reply.comment, reply.fKeyID, reply.parentID]
-  await pool.query(text, values)
+  const commentTableText = 'INSERT INTO comment(id, users_id, author, comment, post_id, comment_parent_id) VALUES ($1, $2, $3, $4, $5, $6)'
+  const commentTableValues = [id, reply.userID, reply.author, reply.comment, reply.fKeyID, reply.parentID]
+  await pool.query(commentTableText, commentTableValues)
+  const reactionTableText = `INSERT INTO comment_reaction(comment_id) VALUES($1)`
+  const reactionTableValues = [id]
+  await pool.query(reactionTableText, reactionTableValues)
 }
 export async function getCommentReplies(id) {
   let post = await pool.query(`SELECT comment.id, author, TO_CHAR(date, 'MM/DD/YYYY - HH:MIam') AS date, comment, comment_parent_id, cardinality(comment_reaction.likes) AS likes, cardinality(comment_reaction.dislikes) AS dislikes FROM comment LEFT JOIN comment_reaction ON (comment.id = comment_reaction.comment_id) WHERE comment_parent_id='${id}'`)

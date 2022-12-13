@@ -1,10 +1,9 @@
 import './comment.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
-import { faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faTrashCan, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import axios from 'axios'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import MakeReply from './components/MakeReply/MakeReply'
 import Reply from './components/Reply/Reply'
 
@@ -14,9 +13,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
     const [replies, setReplies] = useState([])
     const [likes, setLikes] = useState(atRenderLikes)
     const [dislikes, setDislikes] = useState(atRenderDislikes)
-
-    // REFS
-    const commentRepliesWrap = useRef()
 
     const deleteComment = async () => {
         try {
@@ -33,7 +29,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
         fetch(`http://localhost:3001/reply?parentID=${commentID}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data.results)
                 setReplies(data.results)
             })
             .catch((err) => {
@@ -55,7 +50,6 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
     const handleDislikeBtnClick = async () => {
         try {
             const results = await axios.get(`http://localhost:3001/dislike-comment/${commentID}`, {withCredentials: true})
-            console.log(results.data.results)
             setDislikes(results.data.results.length)
             const updatedLikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${commentID}`, {withCredentials: true})
             setLikes(updatedLikes.data.results.likes)
@@ -111,8 +105,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
                         <div className="replies">
                             {
                                 replies.map(reply => {
-                                    console.log(reply)
-                                    return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} postFKeyID={postFKeyID} replyParentID={commentID} depth={96}/>
+                                    return <Reply key={reply.id} replyID={reply.id} reply={reply.comment} author={reply.author} date={reply.comment_date} atRenderLikes={reply.likes} atRenderDislikes={reply.dislikes} postFKeyID={postFKeyID} depth={96}/>
                                 })
                             }
                         </div>
