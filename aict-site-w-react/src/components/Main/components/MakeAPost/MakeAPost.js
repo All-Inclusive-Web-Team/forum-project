@@ -18,7 +18,7 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                 </button>
                 {
                     user ? 
-                        <form action="http://backend:3001/posts" method='POST'>
+                        <form action="http://localhost:3001/posts" method='POST'>
                             <div className="make-a-post-form-pair">
                                 <div className="make-a-post-form-label">
                                     <label>Post:</label>
@@ -27,6 +27,7 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                                     <div className="input-options">
                                         <FontAwesomeIcon icon={faImage} />
                                     </div>
+                                    <input type="hidden" value={user.id}/>
                                     <textarea className='make-a-post-form-textarea' name="post" cols="30" rows="10"></textarea>
                                 </div>
                             </div>

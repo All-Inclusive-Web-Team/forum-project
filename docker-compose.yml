@@ -34,9 +34,10 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_PASSWORD=uabgfouabefoibafeobajefvoaubevfoagfoa8eyufc3
       - POSTGRES_USER=Dayvo
+      - POSTGRES_DATABASE=aictforum
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
-      - ./src/migration/dbinit.sql:/backend-of-aict-w-react/schema/postScheme.sql
+      - ./src/migration/dbinit.sql:/backend-of-aict-w-react/schemas/forum_schema/forum_schema.sql
 
 networks:
   db:

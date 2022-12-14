@@ -72,8 +72,10 @@ const LogInRegister = ({logInRegisterPopUp, setLogInRegisterPopUp, setUserData})
     useEffect(() => {
         if (logInRegisterPopUp === true) {
             logInRegisterDiv.current.style.width = '100%'
+            document.body.style.overflow = 'hidden'
         } else {
             logInRegisterDiv.current.style.width = ''
+            document.body.style.overflow = ''
         }
     }, [logInRegisterPopUp])
 

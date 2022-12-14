@@ -63,6 +63,7 @@ router.route('/register').post(async (req,res) => {
 })
 
 router.route('/user').get((req,res) => {
+    // console.log(req.user)
     if (req.user) {
         res.send({
             id: req.user.id,
