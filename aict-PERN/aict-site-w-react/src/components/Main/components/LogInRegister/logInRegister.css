@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 .exit-log-in-register-btn {
     position: absolute;
