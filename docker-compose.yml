@@ -10,7 +10,7 @@ services:
     networks:
       - default
       - ftb
-    restart: on-failure
+    # restart: on-failure
 
   backend:
     container_name: backend
@@ -22,7 +22,7 @@ services:
       - db
       - ftb
       - default
-    restart: on-failure
+    # restart: on-failure
   db:
     container_name: postgres
     image: postgres:15.1-bullseye
@@ -36,8 +36,9 @@ services:
       - POSTGRES_USER=Dayvo
       - POSTGRES_DATABASE=aictforum
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
-      - ./src/migration/dbinit.sql:/backend-of-aict-w-react/schemas/forum_schema/forum_schema.sql
+      - db:/var/lib/postgresql/data
+      - ./backend-of-aict-site-w-react/schemas/forum_schema/forum_schema.sql:/docker-entrypoint-initdb.d/
+
 
 networks:
   db:
