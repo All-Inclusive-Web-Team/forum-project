@@ -5,10 +5,10 @@ dotenv.config()
 import pkg from 'pg';
 const {Pool} = pkg;
 const pool = new Pool({
-  user: process.env.PSQLUSER,
+  user: 'docker',
   host: 'db',
-  database: process.env.PSQLDBNAME,
-  password: 'uabgfouabefoibafeobajefvoaubevfoagfoa8eyufc3',
+  database: 'aictforum',
+  password: 'docker',
   port: 5432,
 })
 

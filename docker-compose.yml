@@ -30,14 +30,16 @@ services:
       - "5432:5432"
     networks:
       - db
+      - default
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-      - POSTGRES_PASSWORD=uabgfouabefoibafeobajefvoaubevfoagfoa8eyufc3
-      - POSTGRES_USER=Dayvo
-      - POSTGRES_DATABASE=aictforum
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - APP_DB_USER=docker
+      - APP_DB_PASS=docker
+      - APP_DB_NAME=aictforum
     volumes:
       - db:/var/lib/postgresql/data
-      - ./backend-of-aict-site-w-react/schemas/forum_schema/forum_schema.sql:/docker-entrypoint-initdb.d/
+      - ./db:/docker-entrypoint-initdb.d/
 
 
 networks:
