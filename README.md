@@ -1,2 +1,3 @@
 # All-Inclusive-Web-Team.github.io
-The landing page of AIWT.
+
+This repo is for everything ACWT (All Inclusive Web Team).
