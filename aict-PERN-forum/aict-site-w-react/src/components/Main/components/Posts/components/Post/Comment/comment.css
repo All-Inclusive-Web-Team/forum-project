@@ -1,0 +1,110 @@
+.comment {
+    border: solid black 1px;
+    margin: 10px 0px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    position: relative;
+}
+.profile-picture-and-date-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--post-red);
+    color: white;
+    position: relative;
+    border-bottom: solid white 1px;
+}
+.profile-picture-wrap {
+    display: flex;
+    align-items: center;
+    width: 90px;
+    justify-content: space-between;
+}
+.profile-picture {
+    border: solid white 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 200px;
+    padding: 10px;
+    margin-left: 5px;
+    width: fit-content;
+}
+.profile-icon {
+    color: white;
+}
+.profile-name {
+    margin-right: 10px;
+}
+.comment-date {
+    margin-right: 10px;
+}
+.comment-options-icon {
+    margin-right: 10px;
+    font-size: 1.25rem;
+}
+.comment-options-icon:hover {
+    color: #444;
+}
+.comment-id-info {
+    color: white;
+    border-bottom: solid black 1px;
+    box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 10%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--post-red);
+}
+.comment-id-info > * {
+    padding: 5px;
+}
+.comment-content-wrap {
+    margin-right: 10px;
+}
+.comment-content-wrap p {
+    overflow-wrap: anywhere;
+    margin: 10px;
+}
+
+/* REPLY BUTTON */
+
+.reply-btn-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.reply-btn {
+    margin: 5px;
+    background-color: transparent;
+    border: none;
+    color: var(--post-red);
+    border-bottom: solid transparent 1px;
+    display: flex;
+    justify-content: flex-end;
+}
+.reply-btn:hover {
+    border-bottom-color: var(--post-red);
+}
+.comment-heart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .35rem;
+}
+.comment-reaction-icon {
+    font-size: 1rem;
+    color: var(--post-red);
+}
+.comment-number-of-reactions {
+    font-size: 1rem;
+    color: var(--post-red);
+}
+.replies {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-left: solid black 1px;
+}

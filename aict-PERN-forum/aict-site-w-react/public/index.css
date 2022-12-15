@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    font-family:'Source Code Pro', monospace;
+}

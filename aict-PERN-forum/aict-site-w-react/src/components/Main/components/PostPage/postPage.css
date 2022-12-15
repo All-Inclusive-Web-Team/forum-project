@@ -1,0 +1,27 @@
+.post-page {
+    width: 85%;
+    min-height: 100vh;
+    margin: auto;
+    padding: 10px;
+}
+.post-page-back-btn-wrap {
+    display: flex;
+    align-items: center;
+    border: solid rgba(0, 0, 0, 0.2) 1px;
+    width: fit-content;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: var(--post-red);
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.post-page-back-btn-arrow {
+    font-size: 1.25rem;
+}
+.post-page-back-btn {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.25rem;
+}
