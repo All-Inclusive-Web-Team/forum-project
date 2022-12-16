@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv-defaults';
+config()
 import { v4 as uuidv4 } from 'uuid';
-dotenv.config()
 
 import pkg from 'pg';
 const {Pool} = pkg;

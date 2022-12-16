@@ -7,9 +7,10 @@ import passport from 'passport'
 import session from 'express-session'
 import flash from 'express-flash'
 
+
 app.use(flash())
 app.use(session({
-    secret: process.env.SECRET_SESSION,
+    secret: 'randomstring',
     resave: false,
     saveUninitialized: false
 }))
