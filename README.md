@@ -1,11 +1,9 @@
 
-# All-Inclusive-Web-Team's Web App
+# All-Inclusive-Web-Team's forum project
 
 ## About AIWT
 
-All inclusive web team is an organization of web developers and coders who want to build interesting projects and real
-use applications. The goal of AIWT is to create a space for developers and coders to meet people with similar interests,
-learn, code, and to defy the limits of what we can accomplish together.
+All inclusive web team is an organization of web developers and coders who want to build interesting projects and real use applications. The goal of AIWT's is to create a space for developers and coders to meet people with similar interests, learn, code, and to push past our limits.
 
 ## Contributing
 
@@ -13,14 +11,12 @@ If you are interested in contributing to the project, take a look at the Github 
 
 ## Discord
 
-Most of our communication happens on the [AIWT Discord server](https://discord.gg/WCvP2YWKrs) which is open to anyone to join. Use the link to join and post a messeage introducing yourself and what interests you have. This project's discussion happens on the #aict-website channel.
+Most of our communication happens on the [AIWT Discord server](https://discord.gg/WCvP2YWKrs) which is open for anyone to join. Use the link to join and post a messeage introducing yourself and what interests you have. This project's discussion happens on the #forum-project channel.
 
-### Current Projects
-
-## Forum (Directory: aict-PERN-forum)
+## Set up
 
 Project Dependencies: Node(version 16.11.1 or higher), PostgreSQL(version 13.8 or higher)
-Older versions make work with this project but to avoid getting any unseen bugs, we recommend using the versions listed above.
+Older versions may work with this project but to avoid getting any unforeseen bugs, we recommend using the versions listed above.
 
 # Front end only set up coming soon!
 
