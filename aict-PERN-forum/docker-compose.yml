@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: website
+    build:
+      context: aict-site-w-react
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+      - ftb
+    restart: on-failure
+
+  backend:
+    container_name: backend
+    build:
+      context: backend-of-aict-site-w-react
+    ports:
+      - "3001:3001"
+    networks:
+      - db
+      - ftb
+      - default
+    restart: on-failure
+  db:
+    container_name: postgres
+    image: postgres:13.8-alpine3.16
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+      - default
+    environment:
+      - POSTGRES_USER=docker_test
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=aictforum
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql
+
+
+networks:
+  db:
+  ftb:
+
+volumes:
+  db:
