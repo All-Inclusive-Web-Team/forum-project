@@ -1,5 +1,5 @@
 
-### All-Inclusive-Web-Team's forum project
+# All-Inclusive-Web-Team's forum project
 
 ## About AIWT
 
