@@ -24,13 +24,13 @@ Older versions may work with this project but to avoid getting any unforeseen bu
 
 # 1. Installing all node dependencies
 
-In your terminal go to directory aict-site-w-react and run npm install. Now the frontend is good to go and doesn't require any further set up.
-Then in your terminal go to directory backend-of-aict-site-w-react and run npm install. All modules will be installed but the backend does require
+In your terminal go to directory forum-project/frontend/ and run npm install. Now the frontend is good to go and doesn't require any further set up.
+Then in your terminal go to directory forum-project/backend/ and run npm install. All modules will be installed but the backend does require
 further set up.
 
 # 2. DB set up
 
-In your terminal, go to directory All-Inclusive-Web-Team.github.io/aict-PERN-forum/backend-of-aict-site-w-react/schemas/forum_schema/.
+In your terminal, go to directory forum-project/backend/schemas/forum_schema/.
 From there, start postgres by running psql, then the command \i forum_schema.sql. If all goes well, your db should be all set and ready to go
 and the project set up is complete. If you run into errors, please reach out for help on the discord server.
 
