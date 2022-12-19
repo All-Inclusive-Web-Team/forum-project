@@ -10,6 +10,7 @@ import { useUserData } from '../../../../../../UserData'
 import { Link } from "react-router-dom";
 
 
+
 function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent, postFKeyID, commentAmount, postDate, forPostPage}) {
     const user = useUserData()
     const [comments, setComment] = useState([])
@@ -19,7 +20,7 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
     const [postClickMsgStyles, setPostClickMsgStyles] = useState({height: 0})
 
     useEffect(() => {
-        fetch(`http://localhost:3001/comments?fKeyID=${postFKeyID}`)
+        fetch(`http://localhost:3001/comment/get-comment/${postFKeyID}`)
             .then(res => res.json())
             .then(data => {
                 setComment(data.results)
@@ -27,12 +28,11 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
             .catch((err) => {
                 console.log(err)
             })
-    }, [postFKeyID])
-
+    }, [])
 
     const deletePost = async () => {
         try {
-            await axios.post('http://localhost:3001/delete-post', {
+            await axios.post('http://localhost:3001/post/delete', {
                 id: postID
             })
             window.location.reload()
@@ -43,9 +43,9 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
 
     const handleLikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/like-post/${postID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/post/like/${postID}`, {withCredentials: true})
             setLikes(results.data.results.length)
-            const updatedDislikes = await axios.get(`http://localhost:3001/post-reactions-amount/${postID}`, {withCredentials: true})
+            const updatedDislikes = await axios.get(`http://localhost:3001/post/reactions-amount/${postID}`, {withCredentials: true})
             setDislikes(updatedDislikes.data.results.dislikes)
         } catch (error) {
             console.log(error)
@@ -54,9 +54,9 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
 
     const handleDislikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/dislike-post/${postID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/post/dislike/${postID}`, {withCredentials: true})
             setDislikes(results.data.results.length)
-            const updatedLikes = await axios.get(`http://localhost:3001/post-reactions-amount/${postID}`, {withCredentials: true})
+            const updatedLikes = await axios.get(`http://localhost:3001/post/reactions-amount/${postID}`, {withCredentials: true})
             setLikes(updatedLikes.data.results.likes)
         } catch (error) {
             console.log(error)
@@ -74,6 +74,7 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
     const handlePostMouseLeave = () => {
         setPostClickMsgStyles({height: '0px'})
     }
+
 
     return (
         <>

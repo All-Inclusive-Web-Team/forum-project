@@ -13,14 +13,8 @@ const MakeReply = ({replyParentID, postFKeyID, parentID, setShowReplyInput, styl
 
     const handleReplyFormSubmit = async (e) => {
         e.preventDefault()
-        // const commentToSend = {
-        //     comment: comment,
-        //     fKeyID: postFKeyID,
-        //     parentID: replyParentID,
-        // }
-        // console.log(commentToSend)
         try {
-            const result = await axios.post('http://localhost:3001/reply', {
+            const result = await axios.post('http://localhost:3001/comment/reply', {
                 comment: comment,
                 fKeyID: postFKeyID,
                 parentID: replyParentID,

@@ -16,9 +16,9 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
 
     const deleteComment = async () => {
         try {
-            await axios.post('http://localhost:3001/delete-comment', {
+            await axios.post('http://localhost:3001/comment/delete', {
                 id: commentID
-            })
+            }, {withCredentials: true})
             window.location.reload()
         } catch (error) {
             console.log(error)
@@ -26,7 +26,7 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
     }
 
     useEffect(() => {    
-        fetch(`http://localhost:3001/reply?parentID=${commentID}`)
+        fetch(`http://localhost:3001/comment/get-reply/${commentID}`)
             .then(res => res.json())
             .then(data => {
                 setReplies(data.results)
@@ -38,9 +38,9 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
 
     const handleLikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/like-comment/${commentID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/comment/like/${commentID}`, {withCredentials: true})
             setLikes(results.data.results.length)
-            const updatedDislikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${commentID}`, {withCredentials: true})
+            const updatedDislikes = await axios.get(`http://localhost:3001/comment/reactions-amount/${commentID}`, {withCredentials: true})
             setDislikes(updatedDislikes.data.results.dislikes)
         } catch (error) {
             console.log(error)
@@ -49,9 +49,9 @@ const Comment = ({commentID, commentContent, commentAuthor, commentDate, postFKe
 
     const handleDislikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/dislike-comment/${commentID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/comment/dislike/${commentID}`, {withCredentials: true})
             setDislikes(results.data.results.length)
-            const updatedLikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${commentID}`, {withCredentials: true})
+            const updatedLikes = await axios.get(`http://localhost:3001/comment/reactions-amount/${commentID}`, {withCredentials: true})
             setLikes(updatedLikes.data.results.likes)
         } catch (error) {
             console.log(error)

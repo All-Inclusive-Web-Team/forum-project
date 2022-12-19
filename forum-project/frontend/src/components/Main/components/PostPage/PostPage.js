@@ -13,7 +13,7 @@ const PostPage = () => {
 
     const getPostByID = async () => {
         try {
-            const results =  await axios.get(`http://localhost:3001/posts/${id}`)
+            const results =  await axios.get(`http://localhost:3001/post/${id}`)
             setPostData(results.data)
         } catch (error) {
             console.log(error)
@@ -22,7 +22,7 @@ const PostPage = () => {
 
     useEffect(() => {
         getPostByID()
-    })
+    }, [])
 
 
     return (

@@ -22,9 +22,10 @@ const ProfilePage = () => {
         currentTab === 'post' ? setCurrentTab('comment') : setCurrentTab('post')
     }
 
+
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:3001/user-posts/${user.id}`)
+            fetch(`http://localhost:3001/post/user-posts/${user.id}`)
                 .then(res => res.json())
                 .then(data => {
                     setPosts(data.results)
@@ -33,11 +34,11 @@ const ProfilePage = () => {
                     console.log(err)
                 })
         }
-    }, [user])
+    }, [])
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:3001/user-comments/${user.id}`)
+            fetch(`http://localhost:3001/comment/user-comments/${user.id}`)
                 .then(res => res.json())
                 .then(data => {
                     setComments(data.results)
