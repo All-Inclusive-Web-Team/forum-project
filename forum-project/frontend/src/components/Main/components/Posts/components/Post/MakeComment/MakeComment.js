@@ -10,11 +10,9 @@ const MakeComment = ({postFKeyID, isMakeCommentVisible}) => {
     const handleCommentFormSubmit = async (e) => {
         e.preventDefault()
         try {
-            const result = await axios.post('http://localhost:3001/comments', {
-                comment: comment,
-                fKeyID: postFKeyID,
+            await axios.post(`http://localhost:3001/comment/post-comment/${postFKeyID}`, {
+                comment: comment
             }, {withCredentials: true})
-            console.log(result)
             window.location.reload()
         } catch (error) {
             console.log(error)

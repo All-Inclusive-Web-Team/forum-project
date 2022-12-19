@@ -8,14 +8,13 @@ import MakeReply from '../MakeReply/MakeReply'
 
 
 const Reply = ({reply, replyID, author, date, postFKeyID, atRenderLikes, atRenderDislikes, depth}) => {
-    // STATES
     const [replies, setReplies] = useState([])
     const [likes, setLikes] = useState(atRenderLikes)
     const [dislikes, setDislikes] = useState(atRenderDislikes)
     const [showReplyInput, setShowReplyInput] = useState(false)
 
     useEffect(() => {      
-        fetch(`http://localhost:3001/reply?parentID=${replyID}`)
+        fetch(`http://localhost:3001/comment/get-reply/${replyID}`)
             .then(res => res.json())
             .then(data => {
                 setReplies(data.results)
@@ -25,15 +24,26 @@ const Reply = ({reply, replyID, author, date, postFKeyID, atRenderLikes, atRende
             })
     }, [replyID])
 
+    const deleteReply = async () => {
+        try {
+            await axios.post('http://localhost:3001/comment/delete', {
+                id: replyID
+            }, {withCredentials: true})
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleReplyBtnClick = () => {
         showReplyInput ? setShowReplyInput(false) : setShowReplyInput(true)
     }
 
     const handleLikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/like-comment/${replyID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/comment/like/${replyID}`, {withCredentials: true})
             setLikes(results.data.results.length)
-            const updatedDislikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${replyID}`, {withCredentials: true})
+            const updatedDislikes = await axios.get(`http://localhost:3001/comment/reactions-amount/${replyID}`, {withCredentials: true})
             setDislikes(updatedDislikes.data.results.dislikes)
         } catch (error) {
             console.log(error)
@@ -42,9 +52,9 @@ const Reply = ({reply, replyID, author, date, postFKeyID, atRenderLikes, atRende
 
     const handleDislikeBtnClick = async () => {
         try {
-            const results = await axios.get(`http://localhost:3001/dislike-comment/${replyID}`, {withCredentials: true})
+            const results = await axios.get(`http://localhost:3001/comment/dislike/${replyID}`, {withCredentials: true})
             setDislikes(results.data.results.length)
-            const updatedLikes = await axios.get(`http://localhost:3001/comment-reactions-amount/${replyID}`, {withCredentials: true})
+            const updatedLikes = await axios.get(`http://localhost:3001/comment/reactions-amount/${replyID}`, {withCredentials: true})
             setLikes(updatedLikes.data.results.likes)
         } catch (error) {
             console.log(error)
@@ -61,12 +71,8 @@ const Reply = ({reply, replyID, author, date, postFKeyID, atRenderLikes, atRende
                         <p className='profile-name'>{author}</p>
                     </div>
                     <p className='comment-date'>{date}</p>
-                    <FontAwesomeIcon className='comment-options-icon' icon={faTrashCan}/>
+                    <FontAwesomeIcon className='comment-options-icon' icon={faTrashCan} onClick={deleteReply}/>
                 </div>
-                {/* <div className="reply-comment-id-info">
-                    <div>Comment ID: {replyID}</div>
-                    {replyParentID && <div>parent id: {replyParentID}</div>}
-                </div> */}
                 <div className="comment-content-wrap">
                     <p>{reply}</p>
                 </div>

@@ -7,7 +7,6 @@ const router = express.Router()
 
 initialize(passport)
 
-
 router.route('/logout').delete(function (req, res, next) {
     req.logout(err => {
         if (err) return next(err)
@@ -16,9 +15,6 @@ router.route('/logout').delete(function (req, res, next) {
     res.json()
 
 });
-
-
-
 
 router.route('/log-in').post(async (req,res,next) => {
     try {
@@ -36,13 +32,6 @@ router.route('/log-in').post(async (req,res,next) => {
         console.log(error)
     }
 })
-
-// router.route('/log-in').post(passport.authenticate('local', {
-//     successRedirect: 'http://localhost:3000',
-//     failureRedirect: 'http://localhost:3000/failure',
-//     failureFlash: true
-// }))
-
 
 router.route('/register').post(async (req,res) => {
     const register = {
@@ -63,7 +52,6 @@ router.route('/register').post(async (req,res) => {
 })
 
 router.route('/user').get((req,res) => {
-    // console.log(req.user)
     if (req.user) {
         res.send({
             id: req.user.id,

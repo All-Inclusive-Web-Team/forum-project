@@ -18,7 +18,7 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                 </button>
                 {
                     user ? 
-                        <form action="http://localhost:3001/posts" method='POST'>
+                        <form action="http://localhost:3001/post" method='POST'>
                             <div className="make-a-post-form-pair">
                                 <div className="make-a-post-form-label">
                                     <label>Post:</label>
