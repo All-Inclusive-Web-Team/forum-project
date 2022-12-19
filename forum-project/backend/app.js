@@ -1,7 +1,8 @@
 import express from 'express'
 const app = express()
-import router from './routes/posts.js'
-import logInRouter from './routes/logInRoutes.js'
+import postRouter from './routes/postRoutes.js'
+import logInRouter from './routes/loginRoutes.js'
+import commentRouter from './routes/commentRoutes.js'
 import cors from 'cors';
 import passport from 'passport'
 import session from 'express-session'
@@ -26,14 +27,15 @@ const corsOptions = {
   // allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
   credentials: true
 };
-
 // app.options('*', cors(corsOptions));
+
 app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/', router)
+app.use('/post', postRouter)
+app.use('/comment', commentRouter)
 app.use('/', logInRouter)
 
 const port = process.env.PORT || 3001
