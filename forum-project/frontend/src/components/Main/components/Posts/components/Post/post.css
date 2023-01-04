@@ -42,6 +42,9 @@
 }
 .post-content {
     color: black;
+    margin: 0;
+    padding: 10px;
+    word-break: break-word;
 }
 .post-trashcan-icon {
     font-size: 1.5rem;

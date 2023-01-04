@@ -1,8 +1,15 @@
 .posts-display {
-    margin: 1rem 10%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: 0.65fr;
+    gap: 1.25rem;
+    justify-content: center;
+}
+@media all and (max-width: 600px) {
+    .posts-display {
+        grid-template-columns: .85fr;
+        gap: 1rem;
+    }
 }
 .no-posts-message {
     font-size: 1.25rem;

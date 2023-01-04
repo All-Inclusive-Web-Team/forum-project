@@ -7,7 +7,7 @@ main {
     gap: 1rem;
 }
 .posts {
-    width: 80%;
+    width: 100%;
 }
 .create-post-header {
     margin-top: 1rem;
@@ -15,4 +15,37 @@ main {
 
 .make-a-post-section {
     width: 100%;
+}
+.feed-navigation {
+    width: 100%;
+    background-color: var(--post-red);
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    border-bottom: solid black 1px;
+}
+@media all and (max-width: 375px) {
+    .feed-navigation {
+        justify-content: center;
+    }
+    .feed-search-input {
+        width: 100%;
+    }
+    .feed-sort-category {
+        width: 100%;
+    }
+}
+.feed-search-input {
+    border-radius: 10px;
+    border: solid lightgray 2px;
+    padding: 3px;
+    font-size: 1.05rem;
+}
+.feed-sort-category {
+    padding: 3px;
+    border-radius: 10px;
+    border: solid lightgray 2px;
 }

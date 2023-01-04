@@ -9,6 +9,12 @@ const Main = () => {
     const [makeAPostVisible, setMakeAPostVisible] = useState(true)
     return(
         <main>
+            <section className='feed-navigation'>
+                <input className='feed-search-input' type="text" placeholder='Search Feed...'/>
+                <select className='feed-sort-category'>
+                    <option>Choose Category</option>
+                </select>
+            </section>
             <section className="posts">
                 <Posts/>
             </section>  
