@@ -67,21 +67,12 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
         isMakeCommentVisible ? setIsMakeCommentVisible(false) : setIsMakeCommentVisible(true)
     }
 
-    const handlePostMouseEnter = () => {
-        setPostClickMsgStyles({height: '20px'})
-    }
-
-    const handlePostMouseLeave = () => {
-        setPostClickMsgStyles({height: '0px'})
-    }
-
-
     return (
         <>
         {
             forPostPage
             ?
-            <div className="post-on-post-page" onMouseEnter={handlePostMouseEnter} onMouseLeave={handlePostMouseLeave}>
+            <div className="post-on-post-page">
                 <div className="post-author-wrap">
                     <h2 className="post-author">
                         {postAuthor}
@@ -128,17 +119,18 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
                 </section>
             </div>
             :
-            <Link to={`/post/${postID}`} style={{textDecoration: 'none'}}>
-                <div as={Link} to={`/post/${postID}`} className="post" onMouseEnter={handlePostMouseEnter} onMouseLeave={handlePostMouseLeave}>
-                    <div className='post-click-msg' style={postClickMsgStyles}>Click to view and comment on post</div>
-                    <div className="post-author-wrap">
-                        <h2 className="post-author">
-                            {postAuthor}
-                        </h2>
-                        <div className='post-date'>{postDate}</div>
-                        <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
-                    </div>
-                    <p className='post-content'>{postContent}</p>
+                <div className="post">
+                    {/* <div className='post-click-msg' style={postClickMsgStyles}>Click to view and comment on post</div> */}
+                        <Link to={`/post/${postID}`} style={{textDecoration: 'none'}}>
+                            <div className="post-author-wrap">
+                                <h2 className="post-author">
+                                    {postAuthor}
+                                </h2>
+                                <div className='post-date'>{postDate}</div>
+                                <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
+                            </div>
+                            <p className='post-content'>{postContent}</p>
+                        </Link>
                     <section className='comment-like-section'>
                         <div className="heart-container">
                             <FontAwesomeIcon className='post-icon heart-icon' icon={faHeart} onClick={handleLikeBtnClick}/>
@@ -146,13 +138,14 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
                             <FontAwesomeIcon className='post-icon heart-break-icon' icon={faHeartCrack} onClick={handleDislikeBtnClick}/>
                             <div className='post-number number-of-broken-hearts'>{dislikes}</div>
                         </div>
-                        <div className="comment-container">
-                            <div className='post-number'>{commentAmount}</div>
-                            <FontAwesomeIcon className='post-icon comment-icon' icon={faComment} onClick={handleCommentBtnClick}/>
-                        </div>
+                        <Link to={`/post/${postID}`} style={{textDecoration: 'none'}}>
+                            <div className="comment-container">
+                                <div className='post-number'>{commentAmount}</div>
+                                <FontAwesomeIcon className='post-icon comment-icon' icon={faComment} onClick={handleCommentBtnClick}/>
+                            </div>
+                        </Link>
                     </section>
                 </div>
-            </Link>
         }
         </>
     )
