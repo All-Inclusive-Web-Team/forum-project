@@ -15,21 +15,21 @@ const pool = new Pool({
 // Alt + z and you'll see the queries
 
 export const getPosts = async function() {
-  let data = await pool.query("SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC")
+  let data = await pool.query("SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, post.filename, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC")
   return data.rows
 }
 export const getPostByID = async function(id) {
-  let data = await pool.query(`SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) WHERE post.id='${id}' GROUP BY post.id, post_reaction.likes, post_reaction.dislikes`)
+  let data = await pool.query(`SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, post.filename, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) WHERE post.id='${id}' GROUP BY post.id, post_reaction.likes, post_reaction.dislikes`)
   return data.rows[0]
 }
 export const getUserPosts = async function(id) {
-  let data = await pool.query( `SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) WHERE post.users_id='${id}' GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC`)
+  let data = await pool.query( `SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, post.filename, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) WHERE post.users_id='${id}' GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC`)
   return data.rows
 }
 export async function postPost(post) {
   const id = uuidv4()
-  const postTableText = `INSERT INTO post(id, users_id, author, post) VALUES($1, $2, $3, $4)`
-  const postTableValues = [id, post.userID, post.author, post.content]
+  const postTableText = `INSERT INTO post(id, users_id, author, post, filename) VALUES($1, $2, $3, $4, $5)`
+  const postTableValues = [id, post.userID, post.author, post.content, post.filename]
   const reactionTableText = `INSERT INTO post_reaction(post_id) VALUES($1)`
   const reactionTableValues = [id]
   await pool.query(postTableText, postTableValues)
