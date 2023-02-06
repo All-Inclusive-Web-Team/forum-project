@@ -19,12 +19,12 @@ app.use(passport.session())
 app.use(passport.initialize())
 
 const corsOptions = {
-  // origin: (origin, callback) => {
-  //   callback(null, true);
-  // },
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
   origin: "http://localhost:3000",
-  // methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  // allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
   credentials: true
 };
 // app.options('*', cors(corsOptions));

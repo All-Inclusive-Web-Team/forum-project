@@ -41,8 +41,13 @@
 .input-options:hover {
     background-color: lightgray;
 }
+.image-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 .image-upload-cancel-btn {
-    float: right;
+    align-self: flex-end;
 }
 .make-a-post-form-textarea {
     width: 100%;

@@ -35,7 +35,7 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                 </button>
                 {
                     user ? 
-                        <form action="http://localhost:3001/post" method='POST'>
+                        <form action="http://localhost:3001/post" method='POST' >
                             <div className="make-a-post-form-pair">
                                 <div className="make-a-post-form-label">
                                     <label>Post:</label>
@@ -46,17 +46,16 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                                 {
                                     imageInputOpen 
                                     &&
-                                    <div>
+                                    <div className='image-input-container'>
+                                        <button onClick={cancelImageUpload} className="image-upload-cancel-btn">Cancel</button>
                                         <FilePond
                                             files={files}
                                             onupdatefiles={setFiles}
-                                            allowMultiple={true}
-                                            maxFiles={3}
-                                            server="/post"
-                                            name="files"
+                                            allowMultiple={false}
+                                            server="http://localhost:3001/post/async-file-upload"
+                                            name="imgName"
                                             labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                                         />
-                                        <button onClick={cancelImageUpload} className="image-upload-cancel-btn">Cancel</button>
                                     </div>
                                 }
                                 <div className="make-a-post-form-input">
