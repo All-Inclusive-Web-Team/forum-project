@@ -22,12 +22,12 @@ router.route('/').get(async (req,res)=> {
         console.log(error)
     }
 }).post(upload.single('imgName'), async(req,res) => {
-    const filename = req.file !== null ? req.file.filename : null
+    const filename = req.file ? req.file.filename : null
     const post = {
         author: req.user.name,
         content: req.body.post,
         userID: req.user.id,
-        filename
+        filename,
     }
     try {
         await postPost(post)
@@ -35,6 +35,15 @@ router.route('/').get(async (req,res)=> {
         return true
     } catch (error) {
         res.status(404).json({msg: 'FAILED'})
+        console.log(error)
+    }
+})
+
+router.route('/async-file-upload').post(upload.single('imgName'), async (req, res) => {
+    const filename = req.file ? req.file.filename : null
+    try {
+        console.log(filename)
+    } catch (error) {
         console.log(error)
     }
 })
