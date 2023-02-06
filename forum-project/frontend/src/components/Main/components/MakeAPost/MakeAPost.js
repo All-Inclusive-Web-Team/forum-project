@@ -1,13 +1,30 @@
 import './makeAPost.css'
+import 'filepond/dist/filepond.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useUserData } from '../../../../UserData'
 import { faImage, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { useRef, useState } from 'react'
+import {FilePond} from 'react-filepond'
 
 const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
     const user = useUserData()
+    const inputOptions = useRef()
+    const textInput = useRef()
+
+    const [imageInputOpen, setImageInputOpen] = useState(false)
+    const [files, setFiles] = useState([])
+    // const [currentPost, setCurrentPost] = useState(null)
 
     const handleXBtnClick = () => {
         setMakeAPostVisible(true)
+    }
+
+    const onImageIconClick = () => {
+        imageInputOpen ? setImageInputOpen(false) : setImageInputOpen(true)
+    }
+
+    const cancelImageUpload = () => {
+        setImageInputOpen(false)
     }
 
     return (
@@ -23,12 +40,30 @@ const MakeAPost = ({makeAPostVisible, setMakeAPostVisible}) => {
                                 <div className="make-a-post-form-label">
                                     <label>Post:</label>
                                 </div>
-                                <div className="make-a-post-form-input">
-                                    <div className="input-options">
-                                        <FontAwesomeIcon icon={faImage} />
+                                <div ref={inputOptions} className="input-options">
+                                    <FontAwesomeIcon icon={faImage} onClick={onImageIconClick}/>
+                                </div>
+                                {
+                                    imageInputOpen 
+                                    &&
+                                    <div>
+                                        <FilePond
+                                            files={files}
+                                            onupdatefiles={setFiles}
+                                            allowMultiple={true}
+                                            maxFiles={3}
+                                            server="/post"
+                                            name="files"
+                                            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                                        />
+                                        <button onClick={cancelImageUpload} className="image-upload-cancel-btn">Cancel</button>
                                     </div>
-                                    <input type="hidden" value={user.id}/>
-                                    <textarea className='make-a-post-form-textarea' name="post" cols="30" rows="10"></textarea>
+                                }
+                                <div className="make-a-post-form-input">
+                                    <div className='text-input'>
+                                        <input type="hidden" value={user.id}/>
+                                        <textarea ref={textInput} className='make-a-post-form-textarea' name="post" cols="30" rows="10"></textarea>
+                                    </div>
                                 </div>
                             </div>
                             <div className="make-a-post-form-submit">
