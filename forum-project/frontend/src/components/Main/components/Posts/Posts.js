@@ -24,7 +24,7 @@ const Posts = () => {
                 posts.length > 0
             ? 
                 posts.map((post) => {
-                    return <Post key={post.id} postID={post.id} postAuthor={post.author} atRenderLikes={post.likes} atRenderDislikes={post.dislikes} postContent={post.post} postDate={post.date} commentAmount={post.comment_amount} postFKeyID={post.id}/>
+                    return <Post key={post.id} postAuthorID={post.users_id} postID={post.id} postAuthor={post.author} atRenderLikes={post.likes} atRenderDislikes={post.dislikes} postContent={post.post} postDate={post.date} commentAmount={post.comment_amount} postFKeyID={post.id}/>
                 })
             : 
                 !posts 

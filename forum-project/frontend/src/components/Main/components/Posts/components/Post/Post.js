@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 
 
-function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent, postFKeyID, commentAmount, postDate, forPostPage}) {
+function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislikes, postContent, postFKeyID, commentAmount, postDate, forPostPage}) {
     const user = useUserData()
     const [comments, setComment] = useState([])
     const [likes, setLikes] = useState(atRenderLikes)
@@ -127,7 +127,13 @@ function Post ({postID, postAuthor, atRenderLikes, atRenderDislikes, postContent
                                     {postAuthor}
                                 </h2>
                                 <div className='post-date'>{postDate}</div>
-                                <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
+                                {
+                                    postAuthorID === Number(user.id) 
+                                    ?
+                                    <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
+                                    :
+                                    null
+                                }
                             </div>
                             <p className='post-content'>{postContent}</p>
                         </Link>
