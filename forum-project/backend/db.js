@@ -15,7 +15,7 @@ const pool = new Pool({
 // Alt + z and you'll see the queries
 
 export const getPosts = async function() {
-  let data = await pool.query("SELECT post.id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC")
+  let data = await pool.query("SELECT post.id, post.users_id, post.author, post.post, TO_CHAR(post.date, 'MM/DD/YYYY - HH:MIam') AS date, cardinality(post_reaction.likes) AS likes, cardinality(post_reaction.dislikes) AS dislikes, COUNT(comment.post_id) AS comment_amount FROM post LEFT JOIN comment ON (post.id = comment.post_id) RIGHT JOIN post_reaction ON (post.id = post_reaction.post_id) GROUP BY post.id, post_reaction.likes, post_reaction.dislikes ORDER BY post.date DESC")
   return data.rows
 }
 export const getPostByID = async function(id) {
