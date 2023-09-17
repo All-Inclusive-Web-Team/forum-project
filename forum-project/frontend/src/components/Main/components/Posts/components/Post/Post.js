@@ -2,7 +2,8 @@ import './post.css'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
-import { faTrashCan, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 import Comment from './Comment/Comment'
 import MakeComment from './MakeComment/MakeComment'
 import axios from 'axios'
@@ -78,7 +79,9 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
                         {postAuthor}
                     </h2>
                     <div className='post-date'>{postDate}</div>
-                    <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
+                    <button className='options-btn'>
+                        <FontAwesomeIcon icon={faGear}/>
+                    </button>
                 </div>
                 <p className='post-content'>{postContent}</p>
                 <section className='comment-like-section'>
@@ -130,7 +133,9 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
                                 {
                                     postAuthorID === Number(user.id) 
                                     ?
-                                    <FontAwesomeIcon className='post-trashcan-icon' icon={faTrashCan} onClick={deletePost}/>
+                                    <button className='options-btn'>
+                                        <FontAwesomeIcon icon={faGear}/>
+                                    </button>
                                     :
                                     null
                                 }
