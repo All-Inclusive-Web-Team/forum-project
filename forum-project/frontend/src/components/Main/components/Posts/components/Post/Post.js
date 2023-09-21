@@ -1,5 +1,5 @@
 import './post.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
 import { faHeartCrack } from '@fortawesome/free-solid-svg-icons'
@@ -8,12 +8,13 @@ import Comment from './Comment/Comment'
 import MakeComment from './MakeComment/MakeComment'
 import axios from 'axios'
 import { useUserData } from '../../../../../../UserData'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislikes, postContent, postFKeyID, commentAmount, postDate, forPostPage}) {
     const user = useUserData()
+    const navigate = useNavigate()
     const [comments, setComment] = useState([])
     const [likes, setLikes] = useState(atRenderLikes)
     const [dislikes, setDislikes] = useState(atRenderDislikes)
@@ -68,12 +69,23 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
         isMakeCommentVisible ? setIsMakeCommentVisible(false) : setIsMakeCommentVisible(true)
     }
 
+    const onPostClick = (e) => {
+        if (e.target.closest('.post-on-post-page')) {
+            // show post options dropdown
+        }
+        if (e.target.closest('.options-btn')) {
+            // show post options dropdown
+        } else {
+            navigate(`/post/${postID}`)
+        }
+    }
+
     return (
         <>
         {
             forPostPage
             ?
-            <div className="post-on-post-page">
+            <div className="post-on-post-page" onClick={onPostClick}>
                 <div className="post-author-wrap">
                     <h2 className="post-author">
                         {postAuthor}
@@ -122,9 +134,8 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
                 </section>
             </div>
             :
-                <div className="post">
+                <div className="post"  onClick={onPostClick}>
                     {/* <div className='post-click-msg' style={postClickMsgStyles}>Click to view and comment on post</div> */}
-                        <Link to={`/post/${postID}`} style={{textDecoration: 'none'}}>
                             <div className="post-author-wrap">
                                 <h2 className="post-author">
                                     {postAuthor}
@@ -141,7 +152,6 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
                                 }
                             </div>
                             <p className='post-content'>{postContent}</p>
-                        </Link>
                     <section className='comment-like-section'>
                         <div className="heart-container">
                             <FontAwesomeIcon className='post-icon heart-icon' icon={faHeart} onClick={handleLikeBtnClick}/>
