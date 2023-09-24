@@ -6,7 +6,7 @@ import image from './images/example-cover.png'
 import profilePic from './images/profile-pic.png'
 import { useUserData } from '../../../../UserData'
 import Post from '../Posts/components/Post/Post'
-import Comment from '../Posts/components/Post/Comment/Comment'
+import Comment from '../Posts/components/Post/components/Comment/Comment'
 import { useNavigate } from 'react-router-dom'
 
 

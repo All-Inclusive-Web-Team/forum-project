@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons'
 import { faHeartCrack } from '@fortawesome/free-solid-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
-import Comment from './Comment/Comment'
-import MakeComment from './MakeComment/MakeComment'
+import Comment from './components/Comment/Comment'
+import MakeComment from './components/MakeComment/MakeComment'
 import axios from 'axios'
 import { useUserData } from '../../../../../../UserData'
 import { Link, useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
     const [likes, setLikes] = useState(atRenderLikes)
     const [dislikes, setDislikes] = useState(atRenderDislikes)
     const [isMakeCommentVisible, setIsMakeCommentVisible] = useState(true)
-    const [postClickMsgStyles, setPostClickMsgStyles] = useState({height: 0})
 
     useEffect(() => {
         fetch(`http://localhost:3001/comment/get-comment/${postFKeyID}`)
@@ -135,23 +134,22 @@ function Post ({postID, postAuthorID, postAuthor, atRenderLikes, atRenderDislike
             </div>
             :
                 <div className="post"  onClick={onPostClick}>
-                    {/* <div className='post-click-msg' style={postClickMsgStyles}>Click to view and comment on post</div> */}
-                            <div className="post-author-wrap">
-                                <h2 className="post-author">
-                                    {postAuthor}
-                                </h2>
-                                <div className='post-date'>{postDate}</div>
-                                {
-                                    postAuthorID === Number(user.id) 
-                                    ?
-                                    <button className='options-btn'>
-                                        <FontAwesomeIcon icon={faGear}/>
-                                    </button>
-                                    :
-                                    null
-                                }
-                            </div>
-                            <p className='post-content'>{postContent}</p>
+                    <div className="post-author-wrap">
+                        <h2 className="post-author">
+                            {postAuthor}
+                        </h2>
+                        <div className='post-date'>{postDate}</div>
+                        {
+                            postAuthorID === Number(user.id) 
+                            ?
+                            <button className='options-btn'>
+                                <FontAwesomeIcon icon={faGear}/>
+                            </button>
+                            :
+                            null
+                        }
+                    </div>
+                    <p className='post-content'>{postContent}</p>
                     <section className='comment-like-section'>
                         <div className="heart-container">
                             <FontAwesomeIcon className='post-icon heart-icon' icon={faHeart} onClick={handleLikeBtnClick}/>
