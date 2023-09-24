@@ -46,12 +46,21 @@
     padding: 10px;
     word-break: break-word;
 }
-.post-trashcan-icon {
-    font-size: 1.5rem;
+.options-btn {
+    background-color: transparent;
     color: var(--post-red);
+    padding: 3px;
+    border-radius: 100px;
+    font-size: 1.25rem;
+    border: 1px transparent solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: border-color 200ms;
 }
-.post-options-icon:hover {
-    color: var(--post-red);
+.options-btn:hover {
+    border-color: rgba(0, 0, 0, 0.4);
 }
 .comment-like-section {
     height: 30px;
